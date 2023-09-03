@@ -1,0 +1,27 @@
+//
+//  CategoryButton.swift
+//  Mini2
+//
+//  Created by Henrique Semmer on 03/09/23.
+//
+
+import SwiftUI
+
+struct CategoryButton: View {
+    @State var categoria: Categoria
+    
+    var body: some View {
+        Text(categoria.name)
+            .padding()
+            .fontWeight(.bold)
+            .foregroundColor(.white)
+            .background(categoria.color)
+            .cornerRadius(12)
+    }
+}
+
+struct CategoryButton_Previews: PreviewProvider {
+    static var previews: some View {
+        CategoryButton(categoria: Categoria.buraco)
+    }
+}

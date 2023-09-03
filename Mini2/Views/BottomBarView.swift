@@ -38,6 +38,14 @@ struct BottomBarView: View {
         VStack{
             CaixaTexto(textoCaixa: "Nome", texto: $nome)
             
+            CaixaTexto(textoCaixa: "Descrição", texto: $descricao)
+            
+//            FlexStack{
+//                ForEach(Categoria.getAll()){ categoria in
+//                    CategoryButton(categoria: categoria)
+//                }
+//            }
+            
             Button {
                 definir()
             } label: {
