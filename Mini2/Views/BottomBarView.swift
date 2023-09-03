@@ -8,15 +8,36 @@
 import SwiftUI
 
 struct BottomBarView: View {
-    @State var creatingAnnotation: Bool
+    @Binding var creatingAnnotation: Bool
+    @State var nome = ""
+    @State var descricao = ""
     
     @State var definir: () -> Void
     
-    var body: some View {
+    var body: some View{
         VStack{
             RoundedRectangle(cornerRadius: 5)
                 .frame(width: 40, height: 5)
                 .foregroundColor(Color(UIColor.systemGray2))
+            
+            if creatingAnnotation{
+                annotationView
+            }else{
+                defaultView
+            }
+            
+            Spacer()
+        }
+        .padding(.vertical, 5)
+        .frame(height: 300)
+        .frame(maxWidth: .infinity)
+        .background(.white)
+    }
+    
+    var annotationView: some View {
+        VStack{
+            CaixaTexto(textoCaixa: "Nome", texto: $nome)
+            
             Button {
                 definir()
             } label: {
@@ -30,16 +51,18 @@ struct BottomBarView: View {
 
             Spacer()
         }
-        .padding(.vertical, 5)
-        .frame(height: 300)
-        .frame(maxWidth: .infinity)
-        .background(.white)
+    }
+    
+    var defaultView: some View{
+        VStack{
+            
+        }
     }
 }
 
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarView(creatingAnnotation: false){
+        BottomBarView(creatingAnnotation: .constant(false)){
             print("a")
         }
     }

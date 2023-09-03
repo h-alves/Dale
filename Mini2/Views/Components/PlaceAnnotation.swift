@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PlaceAnnotationView: View {
+struct PlaceAnnotation: View {
     var funcao: () -> Void
     
     var body: some View {
@@ -29,9 +29,9 @@ struct PlaceAnnotationView: View {
     }
 }
 
-struct PlaceAnnotationView_Previews: PreviewProvider {
+struct PlaceAnnotation_Previews: PreviewProvider {
     static var previews: some View {
-        PlaceAnnotationView(){
+        PlaceAnnotation(){
             print("a")
         }
     }

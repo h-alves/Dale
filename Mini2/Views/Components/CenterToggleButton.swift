@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CenterToggleView: View {
+struct CenterToggleButton: View {
     @Binding var centered: Bool
     @State var centerSymbol: Bool
     
@@ -42,9 +42,9 @@ struct CenterToggleView: View {
     }
 }
 
-struct CenterToggleView_Previews: PreviewProvider {
+struct CenterToggleButton_Previews: PreviewProvider {
     static var previews: some View {
-        CenterToggleView(centered: .constant(true), centerSymbol: true){
+        CenterToggleButton(centered: .constant(true), centerSymbol: true){
             print("a")
         }
     }
