@@ -12,11 +12,13 @@ struct CategoryButton: View {
     
     var body: some View {
         Text(categoria.name)
-            .padding()
+            .padding(.horizontal, 8)
+            .padding(.vertical, 3)
+            .font(.subheadline)
             .fontWeight(.bold)
             .foregroundColor(.white)
             .background(categoria.color)
-            .cornerRadius(12)
+            .cornerRadius(6)
     }
 }
 

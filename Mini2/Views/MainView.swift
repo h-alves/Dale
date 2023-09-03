@@ -92,8 +92,10 @@ struct MainView: View {
                 }
             }
             .onTapGesture {
-                withAnimation {
-                    showingCredits.toggle()
+                if !creatingAnnotation{
+                    withAnimation {
+                        showingCredits.toggle()
+                    }
                 }
             }
             .offset(x: 0, y: showingCredits ? 0 : 250)

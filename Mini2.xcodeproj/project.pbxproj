@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		782EBF6E2AA50A3C008A2805 /* Categoria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782EBF6D2AA50A3C008A2805 /* Categoria.swift */; };
 		782EBF702AA50DE4008A2805 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782EBF6F2AA50DE4008A2805 /* CategoryButton.swift */; };
+		782EBF762AA5114E008A2805 /* FlexStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782EBF752AA5114E008A2805 /* FlexStack.swift */; };
 		785644282A97D08E00C5F014 /* Mini2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785644272A97D08E00C5F014 /* Mini2App.swift */; };
 		7856442A2A97D08E00C5F014 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785644292A97D08E00C5F014 /* ContentView.swift */; };
 		7856442C2A97D08F00C5F014 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7856442B2A97D08F00C5F014 /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		782EBF6D2AA50A3C008A2805 /* Categoria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categoria.swift; sourceTree = "<group>"; };
 		782EBF6F2AA50DE4008A2805 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
+		782EBF752AA5114E008A2805 /* FlexStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexStack.swift; sourceTree = "<group>"; };
 		785644242A97D08E00C5F014 /* Mini2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mini2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		785644272A97D08E00C5F014 /* Mini2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mini2App.swift; sourceTree = "<group>"; };
 		785644292A97D08E00C5F014 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -73,8 +75,10 @@
 				785644292A97D08E00C5F014 /* ContentView.swift */,
 				78E3BBBA2AA42809005C5BAF /* Views */,
 				78E3BBB42AA422A2005C5BAF /* Place.swift */,
+				782EBF6D2AA50A3C008A2805 /* Categoria.swift */,
 				78E3BBB62AA422B7005C5BAF /* LocationManager.swift */,
 				7856442B2A97D08F00C5F014 /* Assets.xcassets */,
+				782EBF752AA5114E008A2805 /* FlexStack.swift */,
 				7856442D2A97D08F00C5F014 /* Preview Content */,
 			);
 			path = Mini2;
@@ -94,7 +98,6 @@
 				78E3BBBD2AA4290B005C5BAF /* Components */,
 				78E3BBBB2AA4282D005C5BAF /* MainView.swift */,
 				78E3BBAE2AA42267005C5BAF /* BottomBarView.swift */,
-				782EBF6D2AA50A3C008A2805 /* Categoria.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 				78E3BBAF2AA42267005C5BAF /* BottomBarView.swift in Sources */,
 				78E3BBBC2AA4282D005C5BAF /* MainView.swift in Sources */,
 				7856442A2A97D08E00C5F014 /* ContentView.swift in Sources */,
+				782EBF762AA5114E008A2805 /* FlexStack.swift in Sources */,
 				782EBF6E2AA50A3C008A2805 /* Categoria.swift in Sources */,
 				78E3BBB32AA42292005C5BAF /* CenterToggleButton.swift in Sources */,
 				78E3BBB72AA422B7005C5BAF /* LocationManager.swift in Sources */,

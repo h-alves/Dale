@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct BottomBarView: View {
+    @State var annotation: Place
     @Binding var creatingAnnotation: Bool
     @State var nome = ""
     @State var descricao = ""
@@ -28,6 +30,7 @@ struct BottomBarView: View {
             
             Spacer()
         }
+        .padding(.horizontal, 12)
         .padding(.vertical, 5)
         .frame(height: 300)
         .frame(maxWidth: .infinity)
@@ -36,24 +39,29 @@ struct BottomBarView: View {
     
     var annotationView: some View {
         VStack{
-            CaixaTexto(textoCaixa: "Nome", texto: $nome)
+            VStack{
+                CaixaTexto(textoCaixa: "Nome", texto: $nome)
+                
+                CaixaTexto(textoCaixa: "Descrição", texto: $descricao)
+                
+                FlexStack{
+                    ForEach(Categoria.getAll()){ categoria in
+                        CategoryButton(categoria: categoria)
+                    }
+                }
+            }
             
-            CaixaTexto(textoCaixa: "Descrição", texto: $descricao)
-            
-//            FlexStack{
-//                ForEach(Categoria.getAll()){ categoria in
-//                    CategoryButton(categoria: categoria)
-//                }
-//            }
+            Spacer()
             
             Button {
                 definir()
             } label: {
-                Text("Define")
-                    .frame(width: 50, height: 10)
-                    .padding(12)
+                Text("ADICIONAR MARCADOR")
+                    .frame(maxWidth: .infinity)
+                    .padding(8)
+                    .fontWeight(.black)
                     .foregroundColor(.white)
-                    .background(.blue)
+                    .background(.green)
                     .cornerRadius(12)
             }
 
@@ -70,7 +78,7 @@ struct BottomBarView: View {
 
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarView(creatingAnnotation: .constant(false)){
+        BottomBarView(annotation: Place(name: "", coordinate: CLLocationCoordinate2D(latitude: 12.3, longitude: 13.4), creating: false) , creatingAnnotation: .constant(false)){
             print("a")
         }
     }
