@@ -14,14 +14,23 @@ struct MainView: View {
     
     @State var showingCredits = false
     @State var creatingAnnotation = false
+    @State var clickingAnnotation = false
     @State var annotationSelected: Place = .emptyPlace
+    
+    @State var nome = ""
+    @State var descricao = ""
     
     var body: some View{
         ZStack(alignment: .bottom){
             Map(coordinateRegion: $manager.region, interactionModes: .all, showsUserLocation: true, annotationItems: annotations){ place in
                 MapAnnotation(coordinate: place.creating ? manager.region.center : place.coordinate) {
                     PlaceAnnotation(){
-                        showingCredits.toggle()
+                        annotationSelected = place
+                        manager.region.center = annotationSelected.coordinate
+                        clickingAnnotation = true
+                        withAnimation{
+                            showingCredits = true
+                        }
                     }
                 }
             }
@@ -35,11 +44,12 @@ struct MainView: View {
                         if creatingAnnotation{
                             annotations.removeAll { $0.id == annotationSelected.id }
                             annotationSelected = .emptyPlace
-                            withAnimation {
-                                showingCredits = false
-                            }
-                            creatingAnnotation = false
                         }
+                        withAnimation {
+                            showingCredits = false
+                        }
+                        creatingAnnotation = false
+                        clickingAnnotation = false
                     }
             )
             .gesture(LongPressGesture(
@@ -79,9 +89,10 @@ struct MainView: View {
             }
             .position(x: 350, y: 40)
             
-            BottomBarView(creatingAnnotation: $creatingAnnotation){
+            BottomBarView(annotation: $annotationSelected, creatingAnnotation: $creatingAnnotation, clickingMarker: $clickingAnnotation, nome: $nome, descricao: $descricao){
                 if creatingAnnotation{
                     let index = annotations.firstIndex(where: { $0.id == annotationSelected.id})
+                    annotations[index!].name = nome
                     annotations[index!].coordinate = manager.region.center
                     annotations[index!].creating = false
                     annotationSelected = .emptyPlace
@@ -89,8 +100,11 @@ struct MainView: View {
                         showingCredits.toggle()
                     }
                     creatingAnnotation = false
+                    nome = ""
+                    descricao = ""
                 }
             }
+            // Sistema de abaixar e levantar barra (provisório)
             .onTapGesture {
                 if !creatingAnnotation{
                     withAnimation {

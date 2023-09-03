@@ -9,10 +9,12 @@ import SwiftUI
 import CoreLocation
 
 struct BottomBarView: View {
-    @State var annotation: Place
+    @Binding var annotation: Place
     @Binding var creatingAnnotation: Bool
-    @State var nome = ""
-    @State var descricao = ""
+    @Binding var clickingMarker: Bool
+    
+    @Binding var nome: String
+    @Binding var descricao: String
     
     @State var definir: () -> Void
     
@@ -24,6 +26,8 @@ struct BottomBarView: View {
             
             if creatingAnnotation{
                 annotationView
+            }else if clickingMarker{
+                markerView
             }else{
                 defaultView
             }
@@ -69,7 +73,13 @@ struct BottomBarView: View {
         }
     }
     
-    var defaultView: some View{
+    var markerView: some View {
+        VStack{
+            Text(annotation.name)
+        }
+    }
+    
+    var defaultView: some View {
         VStack{
             
         }
@@ -78,7 +88,7 @@ struct BottomBarView: View {
 
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarView(annotation: Place(name: "", coordinate: CLLocationCoordinate2D(latitude: 12.3, longitude: 13.4), creating: false) , creatingAnnotation: .constant(false)){
+        BottomBarView(annotation: .constant(Place(name: "", coordinate: CLLocationCoordinate2D(latitude: 12.3, longitude: 13.4), creating: false)) , creatingAnnotation: .constant(false), clickingMarker: .constant(false), nome: .constant(""), descricao: .constant("")){
             print("a")
         }
     }
