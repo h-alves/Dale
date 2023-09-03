@@ -11,8 +11,9 @@ import CoreLocation
 struct Place: Identifiable {
     let id = UUID()
     var name: String
+    var descricao: String
     var coordinate: CLLocationCoordinate2D
     var creating: Bool
     
-    static var emptyPlace = Place(name: "", coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0), creating: false)
+    static var emptyPlace = Place(name: "", descricao: "", coordinate: CLLocationCoordinate2D(latitude: 0, longitude: 0), creating: false)
 }

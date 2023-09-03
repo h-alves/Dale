@@ -27,10 +27,10 @@ struct MainView: View {
                     PlaceAnnotation(){
                         annotationSelected = place
                         manager.region.center = annotationSelected.coordinate
-                        clickingAnnotation = true
                         withAnimation{
                             showingCredits = true
                         }
+                        clickingAnnotation = true
                     }
                 }
             }
@@ -70,7 +70,7 @@ struct MainView: View {
                             }
                             creatingAnnotation = false
                         }else{
-                            let newAnnotation = Place(name: "Nova anotação", coordinate: manager.region.center, creating: true)
+                            let newAnnotation = Place(name: "", descricao: "", coordinate: manager.region.center, creating: true)
                             annotationSelected = newAnnotation
                             annotations.append(newAnnotation)
                             creatingAnnotation = true
@@ -93,6 +93,7 @@ struct MainView: View {
                 if creatingAnnotation{
                     let index = annotations.firstIndex(where: { $0.id == annotationSelected.id})
                     annotations[index!].name = nome
+                    annotations[index!].descricao = descricao
                     annotations[index!].coordinate = manager.region.center
                     annotations[index!].creating = false
                     annotationSelected = .emptyPlace

@@ -23,7 +23,7 @@ struct BottomBarView: View {
             RoundedRectangle(cornerRadius: 5)
                 .frame(width: 40, height: 5)
                 .foregroundColor(Color(UIColor.systemGray2))
-            
+
             if creatingAnnotation{
                 annotationView
             }else if clickingMarker{
@@ -76,6 +76,11 @@ struct BottomBarView: View {
     var markerView: some View {
         VStack{
             Text(annotation.name)
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(.indigo)
+            Text(annotation.descricao)
+                .foregroundColor(.indigo)
         }
     }
     
@@ -88,7 +93,7 @@ struct BottomBarView: View {
 
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarView(annotation: .constant(Place(name: "", coordinate: CLLocationCoordinate2D(latitude: 12.3, longitude: 13.4), creating: false)) , creatingAnnotation: .constant(false), clickingMarker: .constant(false), nome: .constant(""), descricao: .constant("")){
+        BottomBarView(annotation: .constant(Place(name: "teste", descricao: "teste 2", coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), creating: false)) , creatingAnnotation: .constant(false), clickingMarker: .constant(true), nome: .constant(""), descricao: .constant("")){
             print("a")
         }
     }
