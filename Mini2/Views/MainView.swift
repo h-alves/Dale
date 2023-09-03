@@ -19,6 +19,7 @@ struct MainView: View {
     
     @State var nome = ""
     @State var descricao = ""
+    @State var categoria: Categoria = Categoria.vazia
     
     var body: some View{
         ZStack(alignment: .bottom){
@@ -70,7 +71,7 @@ struct MainView: View {
                             }
                             creatingAnnotation = false
                         }else{
-                            let newAnnotation = Place(name: "", descricao: "", coordinate: manager.region.center, creating: true)
+                            let newAnnotation = Place(name: "", descricao: "", categoria: Categoria.vazia, coordinate: manager.region.center, creating: true)
                             annotationSelected = newAnnotation
                             annotations.append(newAnnotation)
                             creatingAnnotation = true
@@ -89,11 +90,12 @@ struct MainView: View {
             }
             .position(x: 350, y: 40)
             
-            BottomBarView(annotation: $annotationSelected, creatingAnnotation: $creatingAnnotation, clickingMarker: $clickingAnnotation, nome: $nome, descricao: $descricao){
+            BottomBarView(annotation: $annotationSelected, creatingAnnotation: $creatingAnnotation, clickingMarker: $clickingAnnotation, nome: $nome, descricao: $descricao, categoria: $categoria){
                 if creatingAnnotation{
                     let index = annotations.firstIndex(where: { $0.id == annotationSelected.id})
                     annotations[index!].name = nome
                     annotations[index!].descricao = descricao
+                    annotations[index!].categoria = categoria
                     annotations[index!].coordinate = manager.region.center
                     annotations[index!].creating = false
                     annotationSelected = .emptyPlace

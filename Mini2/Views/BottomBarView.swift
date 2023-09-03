@@ -15,6 +15,7 @@ struct BottomBarView: View {
     
     @Binding var nome: String
     @Binding var descricao: String
+    @Binding var categoria: Categoria
     
     @State var definir: () -> Void
     
@@ -50,7 +51,11 @@ struct BottomBarView: View {
                 
                 FlexStack{
                     ForEach(Categoria.getAll()){ categoria in
-                        CategoryButton(categoria: categoria)
+                        Button {
+                            self.categoria = categoria
+                        } label: {
+                            CategoryButton(categoria: categoria)
+                        }
                     }
                 }
             }
@@ -74,14 +79,36 @@ struct BottomBarView: View {
     }
     
     var markerView: some View {
-        VStack{
-            Text(annotation.name)
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(.indigo)
-            Text(annotation.descricao)
-                .foregroundColor(.indigo)
+        VStack(spacing: 36){
+            HStack{
+                VStack(alignment: .leading){
+                    Text(annotation.name)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.indigo)
+                    Text(annotation.descricao)
+                        .foregroundColor(.indigo)
+                }
+                
+                Spacer()
+                
+                Button {
+                    print("a")
+                } label: {
+                    Text("Editar")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .padding()
+                        .foregroundColor(.black)
+                        .background(Color(UIColor.systemGray5))
+                        .cornerRadius(8)
+                }
+            }
+            
+            CategoryButton(categoria: annotation.categoria)
         }
+        .padding(.vertical, 24)
+        .padding(.horizontal, 12)
     }
     
     var defaultView: some View {
@@ -93,7 +120,7 @@ struct BottomBarView: View {
 
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarView(annotation: .constant(Place(name: "teste", descricao: "teste 2", coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), creating: false)) , creatingAnnotation: .constant(false), clickingMarker: .constant(true), nome: .constant(""), descricao: .constant("")){
+        BottomBarView(annotation: .constant(Place(name: "teste", descricao: "teste 2", categoria: Categoria.buraco, coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), creating: false)) , creatingAnnotation: .constant(false), clickingMarker: .constant(true), nome: .constant(""), descricao: .constant(""), categoria: .constant(Categoria.vazia)){
             print("a")
         }
     }

@@ -21,6 +21,8 @@ struct Categoria: Identifiable{
     static var reforma = Categoria(name: "Reforma", symbol: "", color: Color.pink)
     static var manutencao = Categoria(name: "Em manutenção", symbol: "", color: Color.cyan)
     
+    static var vazia = Categoria(name: "", symbol: "", color: Color.white)
+    
     static func getAll() -> [Categoria]{
         var result: [Categoria] = []
         result.append(buraco)
