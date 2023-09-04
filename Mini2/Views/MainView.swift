@@ -62,6 +62,8 @@ struct MainView: View {
                     })
                 )
                     .onEnded { value in
+                        // Feedback de tremida e/ou mexidinha no ponto
+                        
                         manager.centered = false
                         if creatingAnnotation{
                             annotations.removeAll { $0.id == annotationSelected.id }

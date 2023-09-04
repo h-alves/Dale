@@ -52,6 +52,7 @@ struct BottomBarView: View {
                 FlexStack{
                     ForEach(Categoria.getAll()){ categoria in
                         Button {
+                            // Feedback (Deixar todos os outros cinza e esse completo)
                             self.categoria = categoria
                         } label: {
                             CategoryButton(categoria: categoria)
@@ -63,6 +64,7 @@ struct BottomBarView: View {
             Spacer()
             
             Button {
+                // Desabilitar botão quando não marcou tudo
                 definir()
             } label: {
                 Text("ADICIONAR MARCADOR")
@@ -93,6 +95,7 @@ struct BottomBarView: View {
                 Spacer()
                 
                 Button {
+                    // Função de editar
                     print("a")
                 } label: {
                     Text("Editar")
@@ -104,8 +107,11 @@ struct BottomBarView: View {
                         .cornerRadius(8)
                 }
             }
-            
-            CategoryButton(categoria: annotation.categoria)
+            HStack{
+                CategoryButton(categoria: annotation.categoria)
+                
+                Spacer()
+            }
         }
         .padding(.vertical, 24)
         .padding(.horizontal, 12)

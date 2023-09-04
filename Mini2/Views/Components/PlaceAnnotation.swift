@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct PlaceAnnotation: View {
+    // Mudar o estilo se tiver sendo criado, editado ou parado no lugar
     var funcao: () -> Void
     
     var body: some View {
