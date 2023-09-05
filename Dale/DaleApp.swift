@@ -1,6 +1,6 @@
 //
-//  Mini2App.swift
-//  Mini2
+//  DaleApp.swift
+//  Dale
 //
 //  Created by Henrique Semmer on 24/08/23.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct Mini2App: App {
+struct DaleApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
