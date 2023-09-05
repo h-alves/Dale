@@ -1,17 +1,16 @@
 //
 //  ContentView.swift
-//  Mini2
+//  Dale
 //
 //  Created by Henrique Semmer on 24/08/23.
 //
 
 import SwiftUI
+import MapKit
 
 struct ContentView: View {
-    var body: some View {
-        VStack {
-            
-        }
+    var body: some View{
+        MainView()
     }
 }
 
