@@ -10,7 +10,7 @@
 		782EBF6E2AA50A3C008A2805 /* Categoria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782EBF6D2AA50A3C008A2805 /* Categoria.swift */; };
 		782EBF702AA50DE4008A2805 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782EBF6F2AA50DE4008A2805 /* CategoryButton.swift */; };
 		782EBF762AA5114E008A2805 /* FlexStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782EBF752AA5114E008A2805 /* FlexStack.swift */; };
-		785644282A97D08E00C5F014 /* Mini2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785644272A97D08E00C5F014 /* Mini2App.swift */; };
+		785644282A97D08E00C5F014 /* DaleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785644272A97D08E00C5F014 /* DaleApp.swift */; };
 		7856442A2A97D08E00C5F014 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785644292A97D08E00C5F014 /* ContentView.swift */; };
 		7856442C2A97D08F00C5F014 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7856442B2A97D08F00C5F014 /* Assets.xcassets */; };
 		7856442F2A97D08F00C5F014 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7856442E2A97D08F00C5F014 /* Preview Assets.xcassets */; };
@@ -27,8 +27,8 @@
 		782EBF6D2AA50A3C008A2805 /* Categoria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categoria.swift; sourceTree = "<group>"; };
 		782EBF6F2AA50DE4008A2805 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		782EBF752AA5114E008A2805 /* FlexStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexStack.swift; sourceTree = "<group>"; };
-		785644242A97D08E00C5F014 /* Mini2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mini2.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		785644272A97D08E00C5F014 /* Mini2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mini2App.swift; sourceTree = "<group>"; };
+		785644242A97D08E00C5F014 /* Dale.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dale.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		785644272A97D08E00C5F014 /* DaleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaleApp.swift; sourceTree = "<group>"; };
 		785644292A97D08E00C5F014 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7856442B2A97D08F00C5F014 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7856442E2A97D08F00C5F014 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 		7856441B2A97D08E00C5F014 = {
 			isa = PBXGroup;
 			children = (
-				785644262A97D08E00C5F014 /* Mini2 */,
+				785644262A97D08E00C5F014 /* Dale */,
 				785644252A97D08E00C5F014 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -63,15 +63,15 @@
 		785644252A97D08E00C5F014 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				785644242A97D08E00C5F014 /* Mini2.app */,
+				785644242A97D08E00C5F014 /* Dale.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		785644262A97D08E00C5F014 /* Mini2 */ = {
+		785644262A97D08E00C5F014 /* Dale */ = {
 			isa = PBXGroup;
 			children = (
-				785644272A97D08E00C5F014 /* Mini2App.swift */,
+				785644272A97D08E00C5F014 /* DaleApp.swift */,
 				785644292A97D08E00C5F014 /* ContentView.swift */,
 				78E3BBBA2AA42809005C5BAF /* Views */,
 				78E3BBB42AA422A2005C5BAF /* Place.swift */,
@@ -81,7 +81,7 @@
 				782EBF752AA5114E008A2805 /* FlexStack.swift */,
 				7856442D2A97D08F00C5F014 /* Preview Content */,
 			);
-			path = Mini2;
+			path = Dale;
 			sourceTree = "<group>";
 		};
 		7856442D2A97D08F00C5F014 /* Preview Content */ = {
@@ -116,9 +116,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		785644232A97D08E00C5F014 /* Mini2 */ = {
+		785644232A97D08E00C5F014 /* Dale */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 785644322A97D08F00C5F014 /* Build configuration list for PBXNativeTarget "Mini2" */;
+			buildConfigurationList = 785644322A97D08F00C5F014 /* Build configuration list for PBXNativeTarget "Dale" */;
 			buildPhases = (
 				785644202A97D08E00C5F014 /* Sources */,
 				785644212A97D08E00C5F014 /* Frameworks */,
@@ -128,9 +128,9 @@
 			);
 			dependencies = (
 			);
-			name = Mini2;
-			productName = Mini2;
-			productReference = 785644242A97D08E00C5F014 /* Mini2.app */;
+			name = Dale;
+			productName = defaultConfigurationName;
+			productReference = 785644242A97D08E00C5F014 /* Dale.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -148,7 +148,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 7856441F2A97D08E00C5F014 /* Build configuration list for PBXProject "Mini2" */;
+			buildConfigurationList = 7856441F2A97D08E00C5F014 /* Build configuration list for PBXProject "Dale" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -161,7 +161,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				785644232A97D08E00C5F014 /* Mini2 */,
+				785644232A97D08E00C5F014 /* Dale */,
 			);
 		};
 /* End PBXProject section */
@@ -193,7 +193,7 @@
 				78E3BBB52AA422A2005C5BAF /* Place.swift in Sources */,
 				78E3BBB92AA427EA005C5BAF /* CaixaTexto.swift in Sources */,
 				782EBF702AA50DE4008A2805 /* CategoryButton.swift in Sources */,
-				785644282A97D08E00C5F014 /* Mini2App.swift in Sources */,
+				785644282A97D08E00C5F014 /* DaleApp.swift in Sources */,
 				78E3BBB12AA4227E005C5BAF /* PlaceAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -322,7 +322,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Mini2/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Dale/Preview Content\"";
 				DEVELOPMENT_TEAM = 225S533H7W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -337,7 +337,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.haskz.Mini2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haskz.Dale;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -355,7 +355,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Mini2/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Dale/Preview Content\"";
 				DEVELOPMENT_TEAM = 225S533H7W;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -370,7 +370,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.haskz.Mini2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haskz.Dale;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -384,7 +384,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7856441F2A97D08E00C5F014 /* Build configuration list for PBXProject "Mini2" */ = {
+		7856441F2A97D08E00C5F014 /* Build configuration list for PBXProject "Dale" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				785644302A97D08F00C5F014 /* Debug */,
@@ -393,7 +393,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		785644322A97D08F00C5F014 /* Build configuration list for PBXNativeTarget "Mini2" */ = {
+		785644322A97D08F00C5F014 /* Build configuration list for PBXNativeTarget "Dale" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				785644332A97D08F00C5F014 /* Debug */,

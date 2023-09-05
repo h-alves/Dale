@@ -1,6 +1,6 @@
 //
 //  CategoryButton.swift
-//  Mini2
+//  Dale
 //
 //  Created by Henrique Semmer on 03/09/23.
 //
