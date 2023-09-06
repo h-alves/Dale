@@ -10,26 +10,28 @@ import CoreLocation
 
 struct BottomBarView: View {
     @Binding var annotation: Place
-    @Binding var creatingAnnotation: Bool
-    @Binding var clickingMarker: Bool
+    @Binding var state: Modo
     
     @Binding var nome: String
     @Binding var descricao: String
     @Binding var categoria: Categoria
     
-    @State var definir: () -> Void
+    @State var mainFunction: () -> Void
     
     var body: some View{
         VStack{
             RoundedRectangle(cornerRadius: 5)
                 .frame(width: 40, height: 5)
                 .foregroundColor(Color(UIColor.systemGray2))
-
-            if creatingAnnotation{
-                annotationView
-            }else if clickingMarker{
-                markerView
-            }else{
+            
+            switch state{
+            case .creating:
+                creatingView
+            case .clicking:
+                clickingView
+            case.editing:
+                editingView
+            case.none:
                 defaultView
             }
             
@@ -42,7 +44,55 @@ struct BottomBarView: View {
         .background(.white)
     }
     
-    var annotationView: some View {
+    var creatingView: some View {
+        VStack{
+            Button {
+                mainFunction()
+            } label: {
+                Text("teste")
+            }
+
+        }
+    }
+    
+    var clickingView: some View {
+        VStack(spacing: 36){
+            HStack{
+                VStack(alignment: .leading){
+                    Text(annotation.name)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.indigo)
+                    Text(annotation.descricao)
+                        .foregroundColor(.indigo)
+                }
+                
+                Spacer()
+                
+                Button {
+                    // Função de editar
+                    mainFunction()
+                } label: {
+                    Text("Editar")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .padding()
+                        .foregroundColor(.black)
+                        .background(Color(UIColor.systemGray5))
+                        .cornerRadius(8)
+                }
+            }
+            HStack{
+                CategoryButton(categoria: annotation.categoria)
+                
+                Spacer()
+            }
+        }
+        .padding(.vertical, 24)
+        .padding(.horizontal, 12)
+    }
+    
+    var editingView: some View {
         VStack{
             VStack{
                 CaixaTexto(textoCaixa: "Nome", texto: $nome)
@@ -65,7 +115,7 @@ struct BottomBarView: View {
             
             Button {
                 // Desabilitar botão quando não marcou tudo
-                definir()
+                mainFunction()
             } label: {
                 Text("ADICIONAR MARCADOR")
                     .frame(maxWidth: .infinity)
@@ -80,43 +130,6 @@ struct BottomBarView: View {
         }
     }
     
-    var markerView: some View {
-        VStack(spacing: 36){
-            HStack{
-                VStack(alignment: .leading){
-                    Text(annotation.name)
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(.indigo)
-                    Text(annotation.descricao)
-                        .foregroundColor(.indigo)
-                }
-                
-                Spacer()
-                
-                Button {
-                    // Função de editar
-                    print("a")
-                } label: {
-                    Text("Editar")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .padding()
-                        .foregroundColor(.black)
-                        .background(Color(UIColor.systemGray5))
-                        .cornerRadius(8)
-                }
-            }
-            HStack{
-                CategoryButton(categoria: annotation.categoria)
-                
-                Spacer()
-            }
-        }
-        .padding(.vertical, 24)
-        .padding(.horizontal, 12)
-    }
-    
     var defaultView: some View {
         VStack{
             
@@ -126,7 +139,7 @@ struct BottomBarView: View {
 
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarView(annotation: .constant(Place(name: "teste", descricao: "teste 2", categoria: Categoria.buraco, coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), creating: false)) , creatingAnnotation: .constant(false), clickingMarker: .constant(true), nome: .constant(""), descricao: .constant(""), categoria: .constant(Categoria.vazia)){
+        BottomBarView(annotation: .constant(Place(name: "teste", descricao: "teste 2", categoria: Categoria.buraco, coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), state: .none)), state: .constant(.none), nome: .constant(""), descricao: .constant(""), categoria: .constant(Categoria.vazia)){
             print("a")
         }
     }
