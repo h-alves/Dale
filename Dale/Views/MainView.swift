@@ -12,10 +12,10 @@ struct MainView: View {
     @StateObject var manager = LocationManager()
     @State var annotations: [Place] = []
     
-    @State var showingCredits = false
-    @State var creatingAnnotation = false
-    @State var clickingAnnotation = false
+    @State var showingBar = false
     @State var annotationSelected: Place = .emptyPlace
+    
+    @State var state: Modo = .none
     
     @State var nome = ""
     @State var descricao = ""
@@ -24,14 +24,14 @@ struct MainView: View {
     var body: some View{
         ZStack(alignment: .bottom){
             Map(coordinateRegion: $manager.region, interactionModes: .all, showsUserLocation: true, annotationItems: annotations){ place in
-                MapAnnotation(coordinate: place.creating ? manager.region.center : place.coordinate) {
+                MapAnnotation(coordinate: place.state == .creating ? manager.region.center : place.coordinate) {
                     PlaceAnnotation(){
                         annotationSelected = place
                         manager.region.center = annotationSelected.coordinate
                         withAnimation{
-                            showingCredits = true
+                            showingBar = true
                         }
-                        clickingAnnotation = true
+                        state = .clicking
                     }
                 }
             }
@@ -42,15 +42,14 @@ struct MainView: View {
             .gesture(
                 TapGesture(count: 1)
                     .onEnded { tap in
-                        if creatingAnnotation{
+                        if state == .creating{
                             annotations.removeAll { $0.id == annotationSelected.id }
                             annotationSelected = .emptyPlace
                         }
                         withAnimation {
-                            showingCredits = false
+                            showingBar = false
                         }
-                        creatingAnnotation = false
-                        clickingAnnotation = false
+                        state = .none
                     }
             )
             .gesture(LongPressGesture(
@@ -64,22 +63,22 @@ struct MainView: View {
                     .onEnded { value in
                         // Feedback de tremida e/ou mexidinha no ponto
                         
-                        manager.centered = false
-                        if creatingAnnotation{
+//                        manager.centered = false
+                        if state == .creating{
                             annotations.removeAll { $0.id == annotationSelected.id }
                             annotationSelected = .emptyPlace
                             withAnimation {
-                                showingCredits = false
+                                showingBar = false
                             }
-                            creatingAnnotation = false
+                            state = .none
                         }else{
-                            let newAnnotation = Place(name: "", descricao: "", categoria: Categoria.vazia, coordinate: manager.region.center, creating: true)
+                            let newAnnotation = Place(name: "", descricao: "", categoria: Categoria.vazia, coordinate: manager.region.center, state: .creating)
                             annotationSelected = newAnnotation
                             annotations.append(newAnnotation)
-                            creatingAnnotation = true
                             withAnimation {
-                                showingCredits = true
+                                showingBar = true
                             }
+                            state = .creating
                         }
                     })
             
@@ -92,32 +91,37 @@ struct MainView: View {
             }
             .position(x: 350, y: 40)
             
-            BottomBarView(annotation: $annotationSelected, creatingAnnotation: $creatingAnnotation, clickingMarker: $clickingAnnotation, nome: $nome, descricao: $descricao, categoria: $categoria){
-                if creatingAnnotation{
-                    let index = annotations.firstIndex(where: { $0.id == annotationSelected.id})
+            BottomBarView(annotation: $annotationSelected,  state: $state, nome: $nome, descricao: $descricao, categoria: $categoria){
+                let index = annotations.firstIndex(where: { $0.id == annotationSelected.id})
+                
+                switch state{
+                case .creating:
+                    annotations[index!].coordinate = manager.region.center
+                    annotations[index!].state = .editing
+                    state = .editing
+                case .editing:
                     annotations[index!].name = nome
                     annotations[index!].descricao = descricao
                     annotations[index!].categoria = categoria
-                    annotations[index!].coordinate = manager.region.center
-                    annotations[index!].creating = false
                     annotationSelected = .emptyPlace
+                    
                     withAnimation {
-                        showingCredits.toggle()
+                        showingBar = false
                     }
-                    creatingAnnotation = false
+                    
+                    state = .none
                     nome = ""
                     descricao = ""
+                case .clicking:
+                    state = .editing
+                case .none:
+                    print("a")
                 }
             }
             // Sistema de abaixar e levantar barra (provisório)
             .onTapGesture {
-                if !creatingAnnotation{
-                    withAnimation {
-                        showingCredits.toggle()
-                    }
-                }
             }
-            .offset(x: 0, y: showingCredits ? 0 : 250)
+            .offset(x: 0, y: showingBar ? 0 : 250)
         }
     }
 }

@@ -14,6 +14,7 @@
 		7856442A2A97D08E00C5F014 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 785644292A97D08E00C5F014 /* ContentView.swift */; };
 		7856442C2A97D08F00C5F014 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7856442B2A97D08F00C5F014 /* Assets.xcassets */; };
 		7856442F2A97D08F00C5F014 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7856442E2A97D08F00C5F014 /* Preview Assets.xcassets */; };
+		78DDF5172AA7B8BE00211600 /* Modo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DDF5162AA7B8BE00211600 /* Modo.swift */; };
 		78E3BBAF2AA42267005C5BAF /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E3BBAE2AA42267005C5BAF /* BottomBarView.swift */; };
 		78E3BBB12AA4227E005C5BAF /* PlaceAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E3BBB02AA4227E005C5BAF /* PlaceAnnotation.swift */; };
 		78E3BBB32AA42292005C5BAF /* CenterToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78E3BBB22AA42292005C5BAF /* CenterToggleButton.swift */; };
@@ -32,6 +33,7 @@
 		785644292A97D08E00C5F014 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7856442B2A97D08F00C5F014 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7856442E2A97D08F00C5F014 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		78DDF5162AA7B8BE00211600 /* Modo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modo.swift; sourceTree = "<group>"; };
 		78E3BBAE2AA42267005C5BAF /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
 		78E3BBB02AA4227E005C5BAF /* PlaceAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceAnnotation.swift; sourceTree = "<group>"; };
 		78E3BBB22AA42292005C5BAF /* CenterToggleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CenterToggleButton.swift; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 				785644292A97D08E00C5F014 /* ContentView.swift */,
 				78E3BBBA2AA42809005C5BAF /* Views */,
 				78E3BBB42AA422A2005C5BAF /* Place.swift */,
+				78DDF5162AA7B8BE00211600 /* Modo.swift */,
 				782EBF6D2AA50A3C008A2805 /* Categoria.swift */,
 				78E3BBB62AA422B7005C5BAF /* LocationManager.swift */,
 				7856442B2A97D08F00C5F014 /* Assets.xcassets */,
@@ -185,6 +188,7 @@
 			files = (
 				78E3BBAF2AA42267005C5BAF /* BottomBarView.swift in Sources */,
 				78E3BBBC2AA4282D005C5BAF /* MainView.swift in Sources */,
+				78DDF5172AA7B8BE00211600 /* Modo.swift in Sources */,
 				7856442A2A97D08E00C5F014 /* ContentView.swift in Sources */,
 				782EBF762AA5114E008A2805 /* FlexStack.swift in Sources */,
 				782EBF6E2AA50A3C008A2805 /* Categoria.swift in Sources */,
