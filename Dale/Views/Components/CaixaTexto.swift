@@ -14,10 +14,10 @@ struct CaixaTexto: View {
     @FocusState private var isFocused: Bool
     
     var body: some View {
-        TextField(textoCaixa, text: $texto)
+        TextField(textoCaixa, text: $texto, prompt: Text("Placeholder").foregroundColor(Color.white))
             .focused($isFocused)
             .underlineTextField()
-            .foregroundColor(.black)
+            .foregroundColor(.white)
             .autocorrectionDisabled()
             .onTapGesture {
                 self.isFocused = true
@@ -30,7 +30,7 @@ extension View {
         self
             .padding(.vertical, 10)
             .overlay(Rectangle().frame(height: 2).padding(.top, 35))
-            .foregroundColor(.black)
+            .foregroundColor(.white)
             .padding(10)
     }
 }

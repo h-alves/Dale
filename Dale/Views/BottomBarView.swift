@@ -37,19 +37,28 @@ struct BottomBarView: View {
             
             Spacer()
         }
-        .padding(.horizontal, 12)
+        .padding(.horizontal, 24)
         .padding(.vertical, 5)
         .frame(height: 300)
         .frame(maxWidth: .infinity)
-        .background(.white)
+        .background(Color("RoxoBG"))
     }
     
     var creatingView: some View {
         VStack{
+            
+            Text("Arraste o pin para o local desejado!")
+                .foregroundColor(.white)
+                .bold()
+                .padding(24)
+            
             Button {
                 mainFunction()
             } label: {
-                Text("teste")
+                Text("DALE")
+                    .foregroundColor(Color("AzulSereno"))
+                    .background(Color("MagentaMarrenta"))
+                    .padding(.vertical, 58)
             }
 
         }
@@ -62,9 +71,9 @@ struct BottomBarView: View {
                     Text(annotation.name)
                         .font(.title)
                         .fontWeight(.bold)
-                        .foregroundColor(.indigo)
+                        .foregroundColor(.white)
                     Text(annotation.descricao)
-                        .foregroundColor(.indigo)
+                        .foregroundColor(.white)
                 }
                 
                 Spacer()
@@ -73,13 +82,9 @@ struct BottomBarView: View {
                     // Função de editar
                     mainFunction()
                 } label: {
-                    Text("Editar")
-                        .font(.headline)
-                        .fontWeight(.bold)
-                        .padding()
-                        .foregroundColor(.black)
-                        .background(Color(UIColor.systemGray5))
-                        .cornerRadius(8)
+                    Image("Editar")
+                        .resizable()
+                        .frame(width: 36, height: 36)
                 }
             }
             HStack{
@@ -113,20 +118,27 @@ struct BottomBarView: View {
             
             Spacer()
             
-            Button {
-                // Desabilitar botão quando não marcou tudo
-                mainFunction()
-            } label: {
-                Text("ADICIONAR MARCADOR")
-                    .frame(maxWidth: .infinity)
-                    .padding(8)
-                    .fontWeight(.black)
-                    .foregroundColor(.white)
-                    .background(.green)
-                    .cornerRadius(12)
+            HStack {
+                
+                Image("Excluir")
+                    .resizable()
+                    .frame(width: 36, height: 36)
+                
+                Button {
+                    // Desabilitar botão quando não marcou tudo
+                    mainFunction()
+                } label: {
+                    Text("salvar")
+                        .frame(maxWidth: .infinity)
+                        .padding(8)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .background(Color("MagentaMarrenta"))
+                        .cornerRadius(10)
+                }
+                
+                Spacer()
             }
-
-            Spacer()
         }
     }
     
