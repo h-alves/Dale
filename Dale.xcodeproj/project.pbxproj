@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		781BDA632AABFD5C00453FBF /* HapticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781BDA622AABFD5C00453FBF /* HapticService.swift */; };
 		782EBF6E2AA50A3C008A2805 /* Categoria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782EBF6D2AA50A3C008A2805 /* Categoria.swift */; };
 		782EBF702AA50DE4008A2805 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782EBF6F2AA50DE4008A2805 /* CategoryButton.swift */; };
 		782EBF762AA5114E008A2805 /* FlexStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782EBF752AA5114E008A2805 /* FlexStack.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		781BDA622AABFD5C00453FBF /* HapticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticService.swift; sourceTree = "<group>"; };
 		782EBF6D2AA50A3C008A2805 /* Categoria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categoria.swift; sourceTree = "<group>"; };
 		782EBF6F2AA50DE4008A2805 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
 		782EBF752AA5114E008A2805 /* FlexStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexStack.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				78DDF5162AA7B8BE00211600 /* Modo.swift */,
 				782EBF6D2AA50A3C008A2805 /* Categoria.swift */,
 				78E3BBB62AA422B7005C5BAF /* LocationManager.swift */,
+				781BDA622AABFD5C00453FBF /* HapticService.swift */,
 				7856442B2A97D08F00C5F014 /* Assets.xcassets */,
 				782EBF752AA5114E008A2805 /* FlexStack.swift */,
 				7856442D2A97D08F00C5F014 /* Preview Content */,
@@ -186,6 +189,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				781BDA632AABFD5C00453FBF /* HapticService.swift in Sources */,
 				78E3BBAF2AA42267005C5BAF /* BottomBarView.swift in Sources */,
 				78E3BBBC2AA4282D005C5BAF /* MainView.swift in Sources */,
 				78DDF5172AA7B8BE00211600 /* Modo.swift in Sources */,
