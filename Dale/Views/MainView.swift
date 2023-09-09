@@ -10,9 +10,10 @@ import MapKit
 
 struct MainView: View {
     @StateObject var manager = LocationManager()
-    @State var annotations: [Place] = []
-    
     @State var showingBar = false
+    @State var barUp = 250
+    
+    @State var annotations: [Place] = []
     @State var annotationSelected: Place = .emptyPlace
     
     @State var state: Modo = .none
@@ -25,7 +26,7 @@ struct MainView: View {
         ZStack(alignment: .bottom){
             Map(coordinateRegion: $manager.region, interactionModes: .all, showsUserLocation: true, annotationItems: annotations){ place in
                 MapAnnotation(coordinate: place.state == .creating ? manager.region.center : place.coordinate) {
-                    PlaceAnnotation(){
+                    PlaceAnnotation(place: place){
                         annotationSelected = place
                         manager.region.center = annotationSelected.coordinate
                         withAnimation{
@@ -42,14 +43,24 @@ struct MainView: View {
             .gesture(
                 TapGesture(count: 1)
                     .onEnded { tap in
-                        if state == .creating{
-                            annotations.removeAll { $0.id == annotationSelected.id }
-                            annotationSelected = .emptyPlace
+                        annotationSelected.state = .none
+                        if state != .none{
+                            if state != .clicking || annotationSelected.name == "" || annotationSelected.descricao == ""{
+                                    annotations.removeAll { $0.id == annotationSelected.id }
+                            }else{
+//                                let index = annotations.firstIndex(where: { $0.id == annotationSelected.id})
+//                                let updatedAnnotation = Place(name: nome, descricao: descricao, categoria: categoria, coordinate: annotations[index!].coordinate, state: .none)
+//
+//                                annotations.append(updatedAnnotation)
+                            }
                         }
+                        annotationSelected = .emptyPlace
                         withAnimation {
                             showingBar = false
                         }
                         state = .none
+                        
+                        annotations.removeAll { $0.id == annotationSelected.id }
                     }
             )
             .gesture(LongPressGesture(
@@ -62,8 +73,8 @@ struct MainView: View {
                 )
                     .onEnded { value in
                         // Feedback de tremida e/ou mexidinha no ponto
+                        HapticsService.shared.play(.light)
                         
-//                        manager.centered = false
                         if state == .creating{
                             annotations.removeAll { $0.id == annotationSelected.id }
                             annotationSelected = .emptyPlace
@@ -98,11 +109,20 @@ struct MainView: View {
                 case .creating:
                     annotations[index!].coordinate = manager.region.center
                     annotations[index!].state = .editing
+                    
                     state = .editing
+                    nome = ""
+                    descricao = ""
                 case .editing:
                     annotations[index!].name = nome
                     annotations[index!].descricao = descricao
                     annotations[index!].categoria = categoria
+                    
+//                    updateAnnotation(lugar: annotations[index!], index: Int(index!))
+//                    let updatedAnnotation = Place(name: nome, descricao: descricao, categoria: categoria, coordinate: annotations[index!].coordinate, state: .none)
+//
+//                    annotations.append(updatedAnnotation)
+                    
                     annotationSelected = .emptyPlace
                     
                     withAnimation {
@@ -110,8 +130,6 @@ struct MainView: View {
                     }
                     
                     state = .none
-                    nome = ""
-                    descricao = ""
                 case .clicking:
                     state = .editing
                 case .none:
@@ -123,6 +141,14 @@ struct MainView: View {
             }
             .offset(x: 0, y: showingBar ? 0 : 250)
         }
+    }
+    
+    func updateAnnotation(lugar: Place, index: Int){
+        let newAnnotation = Place(name: lugar.name, descricao: lugar.descricao, categoria: lugar.categoria, coordinate: lugar.coordinate, state: lugar.state)
+        // Remover a antiga anotação
+        annotations.removeAll { $0.id == lugar.id }
+        // Adicionar uma nova anotação
+        annotations.insert(newAnnotation, at: index)
     }
 }
 
