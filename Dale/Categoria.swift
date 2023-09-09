@@ -14,22 +14,20 @@ struct Categoria: Identifiable{
     let symbol: String
     let color: Color
     
-    static var buraco = Categoria(name: "Buraco", symbol: "", color: Color.purple)
-    static var pavimentacao = Categoria(name: "Não pavimentada", symbol: "", color: Color.green)
-    static var transito = Categoria(name: "Trânsito", symbol: "", color: Color.indigo)
-    static var queda = Categoria(name: "Caí aqui", symbol: "", color: Color.red)
-    static var reforma = Categoria(name: "Reforma", symbol: "", color: Color.pink)
-    static var manutencao = Categoria(name: "Em manutenção", symbol: "", color: Color.cyan)
+    static var geral = Categoria(name: "Geral", symbol: "", color: Color("Lilás"))
+    static var perigo = Categoria(name: "Perigo", symbol: "", color: Color("Laranja"))
+    static var estacionamento = Categoria(name: "Estacionamento", symbol: "", color: Color("VerdeVelocidade"))
+    static var via = Categoria(name: "Via danificada", symbol: "", color: Color("RoxoEscuro"))
+    static var manutencao = Categoria(name: "Em manutenção", symbol: "", color: Color("AzulAmoroso"))
     
     static var vazia = Categoria(name: "", symbol: "", color: Color.white)
     
     static func getAll() -> [Categoria]{
         var result: [Categoria] = []
-        result.append(buraco)
-        result.append(pavimentacao)
-        result.append(transito)
-        result.append(queda)
-        result.append(reforma)
+        result.append(geral)
+        result.append(perigo)
+        result.append(estacionamento)
+        result.append(via)
         result.append(manutencao)
         
         return result
