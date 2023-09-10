@@ -13,14 +13,11 @@ struct PlaceAnnotation: View {
     
     var body: some View {
         VStack(spacing: 0) {
-          Image(systemName: "mappin.circle.fill")
-            .font(.title)
-            .foregroundColor(.red)
+          Image("IconeGeral")
+            .resizable()
+            .frame(maxWidth: 100, maxHeight: 100)
           
-          Image(systemName: "arrowtriangle.down.fill")
-            .font(.caption)
-            .foregroundColor(.red)
-            .offset(x: 0, y: -5)
+          
         }
         .onTapGesture {
             withAnimation {

@@ -38,9 +38,9 @@ struct BottomBarView: View {
             Spacer()
         }
         .padding(.horizontal, 24)
-        .padding(.vertical, 5)
-        .frame(height: 300)
-        .frame(maxWidth: .infinity)
+        .padding(.vertical, 8)
+        .frame(maxWidth: .infinity, maxHeight: alturamodal(state: state), alignment: .top)
+
         .background(Color("RoxoBG"))
     }
     
@@ -50,15 +50,29 @@ struct BottomBarView: View {
             Text("Arraste o pin para o local desejado!")
                 .foregroundColor(.white)
                 .bold()
-                .padding(24)
+                .padding(12)
             
             Button {
                 mainFunction()
             } label: {
-                Text("DALE")
-                    .foregroundColor(Color("AzulSereno"))
-                    .background(Color("MagentaMarrenta"))
-                    .padding(.vertical, 58)
+                ZStack{
+                    
+                    Rectangle()
+                        .frame(height: 56)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color("MagentaMarrenta"))
+
+                        .cornerRadius(8)
+                    
+                    Image("DaleHorizontal")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: .infinity, maxHeight: 40)
+                        .padding(4)
+                    
+                    
+                }
+
             }
 
         }
@@ -120,9 +134,14 @@ struct BottomBarView: View {
             
             HStack {
                 
-                Image("Excluir")
-                    .resizable()
-                    .frame(width: 36, height: 36)
+                Button {
+                    // Desabilitar botão quando não marcou tudo
+                    mainFunction()
+                } label: {
+                    Image("Excluir")
+                        .resizable()
+                        .frame(maxWidth: 36, maxHeight: 36)
+                }
                 
                 Button {
                     // Desabilitar botão quando não marcou tudo
@@ -149,9 +168,17 @@ struct BottomBarView: View {
     }
 }
 
+func alturamodal(state: Modo) -> CGFloat? {
+    if state == .creating {
+        return CGFloat(160)
+    } else {
+        return CGFloat(300)
+    }
+}
+
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarView(annotation: .constant(Place(name: "teste", descricao: "teste 2", categoria: Categoria.buraco, coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), state: .none)), state: .constant(.none), nome: .constant(""), descricao: .constant(""), categoria: .constant(Categoria.vazia)){
+        BottomBarView(annotation: .constant(Place(name: "teste", descricao: "teste 2", categoria: Categoria.buraco, coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), state: .none)), state: .constant(.creating), nome: .constant(""), descricao: .constant(""), categoria: .constant(Categoria.vazia)){
             print("a")
         }
     }
