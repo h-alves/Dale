@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Categoria: Identifiable{
+struct Categoria: Identifiable, Equatable {
     let id = UUID()
     let name: String
     let symbol: String
