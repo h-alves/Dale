@@ -27,12 +27,14 @@ struct MainView: View {
             Map(coordinateRegion: $manager.region, interactionModes: .all, showsUserLocation: true, annotationItems: annotations){ place in
                 MapAnnotation(coordinate: place.state == .creating ? manager.region.center : place.coordinate) {
                     PlaceAnnotation(place: place){
-                        annotationSelected = place
-                        manager.region.center = annotationSelected.coordinate
-                        withAnimation{
-                            showingBar = true
+                        if state == .none{
+                            annotationSelected = place
+                            manager.region.center = annotationSelected.coordinate
+                            withAnimation{
+                                showingBar = true
+                            }
+                            state = .clicking
                         }
-                        state = .clicking
                     }
                 }
             }

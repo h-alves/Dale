@@ -18,7 +18,7 @@ struct PlaceAnnotation: View {
         VStack(spacing: 0) {
           Image("IconeGeral")
             .resizable()
-            .frame(maxWidth: 100, maxHeight: 100)
+            .frame(maxWidth: 60, maxHeight: 60)
         }
         .onTapGesture {
             place.state = .clicking
