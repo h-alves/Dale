@@ -28,12 +28,13 @@ struct MainView: View {
                 MapAnnotation(coordinate: place.state == .creating ? manager.region.center : place.coordinate) {
                     PlaceAnnotation(place: place){
                         if state == .none{
+                            HapticsService.shared.play(.rigid)
                             annotationSelected = place
                             manager.region.center = annotationSelected.coordinate
+                            state = .clicking
                             withAnimation{
                                 showingBar = true
                             }
-                            state = .clicking
                         }
                     }
                 }
@@ -52,10 +53,10 @@ struct MainView: View {
                             }
                         }
                         annotationSelected = .emptyPlace
+                        state = .none
                         withAnimation {
                             showingBar = false
                         }
-                        state = .none
                         
                         annotations.removeAll { $0.id == annotationSelected.id }
                     }
@@ -70,23 +71,23 @@ struct MainView: View {
                 )
                     .onEnded { value in
                         // Feedback de tremida e/ou mexidinha no ponto
-                        HapticsService.shared.play(.light)
+                        HapticsService.shared.play(.medium)
                         
                         if state == .creating{
                             annotations.removeAll { $0.id == annotationSelected.id }
                             annotationSelected = .emptyPlace
+                            state = .none
                             withAnimation {
                                 showingBar = false
                             }
-                            state = .none
                         }else{
                             let newAnnotation = Place(name: "", descricao: "", categoria: Categoria.geral, coordinate: manager.region.center, state: .creating)
                             annotationSelected = newAnnotation
                             annotations.append(newAnnotation)
+                            state = .creating
                             withAnimation {
                                 showingBar = true
                             }
-                            state = .creating
                         }
                     })
             
@@ -104,6 +105,7 @@ struct MainView: View {
                 
                 switch state{
                 case .creating:
+                    HapticsService.shared.play(.medium)
                     annotations[index!].coordinate = manager.region.center
                     annotations[index!].state = .editing
                     
@@ -112,17 +114,18 @@ struct MainView: View {
                     descricao = ""
                     categoria = Categoria.geral
                 case .editing:
+                    HapticsService.shared.play(.heavy)
                     annotations[index!].name = nome
                     annotations[index!].descricao = descricao
                     annotations[index!].categoria = categoria
                     
                     annotationSelected = .emptyPlace
                     
+                    state = .none
                     withAnimation {
                         showingBar = false
                     }
                     
-                    state = .none
                 case .clicking:
                     state = .editing
                 case .none:
@@ -131,11 +134,10 @@ struct MainView: View {
             } deleteFunction: {
                 if state == .editing{
                     annotations.removeAll { $0.id == annotationSelected.id }
+                    state = .none
                     withAnimation {
                         showingBar = false
                     }
-                    
-                    state = .none
                 }
             }
             // Sistema de abaixar e levantar barra (provisório)

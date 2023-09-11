@@ -113,11 +113,6 @@ struct BottomBarView: View {
         .padding(.horizontal, 12)
     }
     
-    
-    var isDisabled: Bool {
-        selected == .vazia
-    }
-    
     var editingView: some View {
         VStack{
             VStack{
@@ -147,7 +142,6 @@ struct BottomBarView: View {
             HStack {
                 
                 Button {
-                    // Desabilitar botão quando não marcou tudo
                     deleteFunction()
                 } label: {
                     Image("Excluir")
@@ -163,10 +157,10 @@ struct BottomBarView: View {
                         .padding(8)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                        .background(isDisabled ? Color(.gray) : Color("MagentaMarrenta"))
+                        .background(isDisabled() ? Color(.gray) : Color("MagentaMarrenta"))
                         .cornerRadius(10)
                 }
-                .disabled(isDisabled)
+                .disabled(isDisabled())
                 
                 Spacer()
             }
@@ -178,6 +172,14 @@ struct BottomBarView: View {
             
         }
     }
+    
+    func isDisabled() -> Bool {
+        if (nome == "" || descricao == ""){
+            return true
+        }else{
+            return false
+        }
+    }
 }
 
 func alturamodal(state: Modo) -> CGFloat? {
@@ -187,6 +189,7 @@ func alturamodal(state: Modo) -> CGFloat? {
         return CGFloat(300)
     }
 }
+
 
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
