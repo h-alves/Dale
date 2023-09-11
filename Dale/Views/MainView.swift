@@ -11,7 +11,7 @@ import MapKit
 struct MainView: View {
     @StateObject var manager = LocationManager()
     @State var showingBar = false
-    @State var barUp = 250
+    @State var barUp: CGFloat = 250
     
     @State var annotations: [Place] = []
     @State var annotationSelected: Place = .emptyPlace
@@ -33,7 +33,7 @@ struct MainView: View {
                             manager.region.center = annotationSelected.coordinate
                             state = .clicking
                             withAnimation{
-                                showingBar = true
+                                barUp = 120
                             }
                         }
                     }
@@ -55,7 +55,7 @@ struct MainView: View {
                         annotationSelected = .emptyPlace
                         state = .none
                         withAnimation {
-                            showingBar = false
+                            barUp = 250
                         }
                         
                         annotations.removeAll { $0.id == annotationSelected.id }
@@ -78,7 +78,7 @@ struct MainView: View {
                             annotationSelected = .emptyPlace
                             state = .none
                             withAnimation {
-                                showingBar = false
+                                barUp = 250
                             }
                         }else{
                             let newAnnotation = Place(name: "", descricao: "", categoria: Categoria.geral, coordinate: manager.region.center, state: .creating)
@@ -86,7 +86,7 @@ struct MainView: View {
                             annotations.append(newAnnotation)
                             state = .creating
                             withAnimation {
-                                showingBar = true
+                                barUp = 160
                             }
                         }
                     })
@@ -110,6 +110,10 @@ struct MainView: View {
                     annotations[index!].state = .editing
                     
                     state = .editing
+                    withAnimation {
+                        barUp = 0
+                    }
+                    
                     nome = ""
                     descricao = ""
                     categoria = Categoria.geral
@@ -123,7 +127,7 @@ struct MainView: View {
                     
                     state = .none
                     withAnimation {
-                        showingBar = false
+                        barUp = 250
                     }
                     
                 case .clicking:
@@ -136,14 +140,14 @@ struct MainView: View {
                     annotations.removeAll { $0.id == annotationSelected.id }
                     state = .none
                     withAnimation {
-                        showingBar = false
+                        barUp = 250
                     }
                 }
             }
             // Sistema de abaixar e levantar barra (provisório)
             .onTapGesture {
             }
-            .offset(x: 0, y: showingBar ? 0 : 250)
+            .offset(x: 0, y: barUp)
         }
     }
     

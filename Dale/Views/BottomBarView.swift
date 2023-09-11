@@ -41,7 +41,8 @@ struct BottomBarView: View {
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 8)
-        .frame(maxWidth: .infinity, maxHeight: alturamodal(state: state), alignment: .top)
+        .frame(height: 300)
+        .frame(maxWidth: .infinity)
 
         .background(Color("RoxoBG"))
     }
@@ -179,14 +180,6 @@ struct BottomBarView: View {
         }else{
             return false
         }
-    }
-}
-
-func alturamodal(state: Modo) -> CGFloat? {
-    if state == .creating {
-        return CGFloat(160)
-    } else {
-        return CGFloat(300)
     }
 }
 
