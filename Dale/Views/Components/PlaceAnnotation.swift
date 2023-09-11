@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct PlaceAnnotation: View {
     // Mudar o estilo se tiver sendo criado, editado ou parado no lugar
+    @State var place: Place
+    
     var funcao: () -> Void
     
     var body: some View {
@@ -16,20 +19,17 @@ struct PlaceAnnotation: View {
           Image("IconeGeral")
             .resizable()
             .frame(maxWidth: 100, maxHeight: 100)
-          
-          
         }
         .onTapGesture {
-            withAnimation {
-                funcao()
-            }
+            place.state = .clicking
+            funcao()
         }
     }
 }
 
 struct PlaceAnnotation_Previews: PreviewProvider {
     static var previews: some View {
-        PlaceAnnotation(){
+        PlaceAnnotation(place: Place(name: "teste", descricao: "test", categoria: Categoria.manutencao, coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), state: Modo.none)){
             print("a")
         }
     }

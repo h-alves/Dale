@@ -15,6 +15,7 @@ struct BottomBarView: View {
     @Binding var nome: String
     @Binding var descricao: String
     @Binding var categoria: Categoria
+    @State var selected: Categoria?
     
     @State var mainFunction: () -> Void
     
@@ -102,13 +103,18 @@ struct BottomBarView: View {
                 }
             }
             HStack{
-                CategoryButton(categoria: annotation.categoria)
+                CategoryButton(categoria: annotation.categoria, isSelected: selected != categoria)
                 
                 Spacer()
             }
         }
         .padding(.vertical, 24)
         .padding(.horizontal, 12)
+    }
+    
+    
+    var isDisabled: Bool {
+        selected == nil
     }
     
     var editingView: some View {
@@ -121,10 +127,15 @@ struct BottomBarView: View {
                 FlexStack{
                     ForEach(Categoria.getAll()){ categoria in
                         Button {
-                            // Feedback (Deixar todos os outros cinza e esse completo)
+                            if selected == categoria {
+                                selected = nil
+                            } else {
+                                selected = categoria
+                            }
+                            
                             self.categoria = categoria
                         } label: {
-                            CategoryButton(categoria: categoria)
+                            CategoryButton(categoria: categoria, isSelected: selected != categoria)
                         }
                     }
                 }
@@ -144,7 +155,6 @@ struct BottomBarView: View {
                 }
                 
                 Button {
-                    // Desabilitar botão quando não marcou tudo
                     mainFunction()
                 } label: {
                     Text("salvar")
@@ -152,9 +162,10 @@ struct BottomBarView: View {
                         .padding(8)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                        .background(Color("MagentaMarrenta"))
+                        .background(isDisabled ? Color(.gray) : Color("MagentaMarrenta"))
                         .cornerRadius(10)
                 }
+                .disabled(isDisabled)
                 
                 Spacer()
             }
@@ -178,7 +189,7 @@ func alturamodal(state: Modo) -> CGFloat? {
 
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarView(annotation: .constant(Place(name: "teste", descricao: "teste 2", categoria: Categoria.buraco, coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), state: .none)), state: .constant(.creating), nome: .constant(""), descricao: .constant(""), categoria: .constant(Categoria.vazia)){
+        BottomBarView(annotation: .constant(Place(name: "teste", descricao: "teste 2", categoria: Categoria.geral, coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), state: .none)), state: .constant(.none), nome: .constant(""), descricao: .constant(""), categoria: .constant(Categoria.vazia)){
             print("a")
         }
     }
