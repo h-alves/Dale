@@ -47,11 +47,6 @@ struct MainView: View {
                         if state != .none{
                             if state != .clicking || annotationSelected.name == "" || annotationSelected.descricao == ""{
                                     annotations.removeAll { $0.id == annotationSelected.id }
-                            }else{
-//                                let index = annotations.firstIndex(where: { $0.id == annotationSelected.id})
-//                                let updatedAnnotation = Place(name: nome, descricao: descricao, categoria: categoria, coordinate: annotations[index!].coordinate, state: .none)
-//
-//                                annotations.append(updatedAnnotation)
                             }
                         }
                         annotationSelected = .emptyPlace
@@ -83,7 +78,7 @@ struct MainView: View {
                             }
                             state = .none
                         }else{
-                            let newAnnotation = Place(name: "", descricao: "", categoria: Categoria.vazia, coordinate: manager.region.center, state: .creating)
+                            let newAnnotation = Place(name: "", descricao: "", categoria: Categoria.geral, coordinate: manager.region.center, state: .creating)
                             annotationSelected = newAnnotation
                             annotations.append(newAnnotation)
                             withAnimation {
@@ -102,7 +97,7 @@ struct MainView: View {
             }
             .position(x: 350, y: 40)
             
-            BottomBarView(annotation: $annotationSelected,  state: $state, nome: $nome, descricao: $descricao, categoria: $categoria){
+            BottomBarView(annotation: $annotationSelected,  state: $state, nome: $nome, descricao: $descricao, categoria: $categoria, selected: $categoria){
                 let index = annotations.firstIndex(where: { $0.id == annotationSelected.id})
                 
                 switch state{
@@ -113,15 +108,11 @@ struct MainView: View {
                     state = .editing
                     nome = ""
                     descricao = ""
+                    categoria = Categoria.geral
                 case .editing:
                     annotations[index!].name = nome
                     annotations[index!].descricao = descricao
                     annotations[index!].categoria = categoria
-                    
-//                    updateAnnotation(lugar: annotations[index!], index: Int(index!))
-//                    let updatedAnnotation = Place(name: nome, descricao: descricao, categoria: categoria, coordinate: annotations[index!].coordinate, state: .none)
-//
-//                    annotations.append(updatedAnnotation)
                     
                     annotationSelected = .emptyPlace
                     
@@ -134,6 +125,15 @@ struct MainView: View {
                     state = .editing
                 case .none:
                     print("a")
+                }
+            } deleteFunction: {
+                if state == .editing{
+                    annotations.removeAll { $0.id == annotationSelected.id }
+                    withAnimation {
+                        showingBar = false
+                    }
+                    
+                    state = .none
                 }
             }
             // Sistema de abaixar e levantar barra (provisório)

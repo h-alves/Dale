@@ -15,9 +15,10 @@ struct BottomBarView: View {
     @Binding var nome: String
     @Binding var descricao: String
     @Binding var categoria: Categoria
-    @State var selected: Categoria?
+    @Binding var selected: Categoria
     
     @State var mainFunction: () -> Void
+    @State var deleteFunction: () -> Void
     
     var body: some View{
         VStack{
@@ -114,7 +115,7 @@ struct BottomBarView: View {
     
     
     var isDisabled: Bool {
-        selected == nil
+        selected == .vazia
     }
     
     var editingView: some View {
@@ -128,7 +129,7 @@ struct BottomBarView: View {
                     ForEach(Categoria.getAll()){ categoria in
                         Button {
                             if selected == categoria {
-                                selected = nil
+                                selected = .vazia
                             } else {
                                 selected = categoria
                             }
@@ -147,7 +148,7 @@ struct BottomBarView: View {
                 
                 Button {
                     // Desabilitar botão quando não marcou tudo
-                    mainFunction()
+                    deleteFunction()
                 } label: {
                     Image("Excluir")
                         .resizable()
@@ -189,8 +190,10 @@ func alturamodal(state: Modo) -> CGFloat? {
 
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarView(annotation: .constant(Place(name: "teste", descricao: "teste 2", categoria: Categoria.geral, coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), state: .none)), state: .constant(.none), nome: .constant(""), descricao: .constant(""), categoria: .constant(Categoria.vazia)){
+        BottomBarView(annotation: .constant(Place(name: "teste", descricao: "teste 2", categoria: Categoria.geral, coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), state: .none)), state: .constant(.none), nome: .constant(""), descricao: .constant(""), categoria: .constant(Categoria.vazia), selected: .constant(Categoria.estacionamento)){
             print("a")
+        } deleteFunction: {
+            print("b")
         }
     }
 }
