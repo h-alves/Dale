@@ -16,16 +16,9 @@ struct PlaceAnnotation: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Image(systemName: "mappin.circle.fill")
-                .font(.title)
-                .foregroundColor(place.categoria.color)
-            
-            if place.state != .none{
-                Image(systemName: "arrowtriangle.down.fill")
-                    .font(.caption)
-                    .foregroundColor(place.categoria.color)
-                    .offset(x: 0, y: -5)
-            }
+          Image("IconeGeral")
+            .resizable()
+            .frame(maxWidth: 100, maxHeight: 100)
         }
         .onTapGesture {
             place.state = .clicking
