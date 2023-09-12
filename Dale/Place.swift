@@ -84,6 +84,7 @@ class PlaceController{
             let cat = Categoria(name: aux.name, symbol: aux.symbol, color: Color("\(aux.color)"))
             let coordenada = CLLocationCoordinate2D(latitude: aux.lat, longitude: aux.lon)
             let p = Place(name: aux.name, descricao: aux.descricao, categoria: cat, coordinate: coordenada, state: .none )
+            places.append(p)
             i += 1
         }
         return places
