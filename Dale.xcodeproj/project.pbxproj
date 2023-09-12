@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		54677BF92AAFA2D10083417F /* HistoricoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54677BF82AAFA2D10083417F /* HistoricoView.swift */; };
+		54677BFB2AAFA74C0083417F /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54677BFA2AAFA74C0083417F /* CardView.swift */; };
 		781BDA632AABFD5C00453FBF /* HapticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781BDA622AABFD5C00453FBF /* HapticService.swift */; };
 		782EBF6E2AA50A3C008A2805 /* Categoria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782EBF6D2AA50A3C008A2805 /* Categoria.swift */; };
 		782EBF702AA50DE4008A2805 /* CategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782EBF6F2AA50DE4008A2805 /* CategoryButton.swift */; };
@@ -26,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		54677BF82AAFA2D10083417F /* HistoricoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricoView.swift; sourceTree = "<group>"; };
+		54677BFA2AAFA74C0083417F /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		781BDA622AABFD5C00453FBF /* HapticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticService.swift; sourceTree = "<group>"; };
 		782EBF6D2AA50A3C008A2805 /* Categoria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categoria.swift; sourceTree = "<group>"; };
 		782EBF6F2AA50DE4008A2805 /* CategoryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryButton.swift; sourceTree = "<group>"; };
@@ -104,6 +108,8 @@
 				78E3BBBD2AA4290B005C5BAF /* Components */,
 				78E3BBBB2AA4282D005C5BAF /* MainView.swift */,
 				78E3BBAE2AA42267005C5BAF /* BottomBarView.swift */,
+				54677BF82AAFA2D10083417F /* HistoricoView.swift */,
+				54677BFA2AAFA74C0083417F /* CardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -190,6 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				781BDA632AABFD5C00453FBF /* HapticService.swift in Sources */,
+				54677BF92AAFA2D10083417F /* HistoricoView.swift in Sources */,
 				78E3BBAF2AA42267005C5BAF /* BottomBarView.swift in Sources */,
 				78E3BBBC2AA4282D005C5BAF /* MainView.swift in Sources */,
 				78DDF5172AA7B8BE00211600 /* Modo.swift in Sources */,
@@ -202,6 +209,7 @@
 				78E3BBB92AA427EA005C5BAF /* CaixaTexto.swift in Sources */,
 				782EBF702AA50DE4008A2805 /* CategoryButton.swift in Sources */,
 				785644282A97D08E00C5F014 /* DaleApp.swift in Sources */,
+				54677BFB2AAFA74C0083417F /* CardView.swift in Sources */,
 				78E3BBB12AA4227E005C5BAF /* PlaceAnnotation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
