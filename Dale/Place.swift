@@ -28,6 +28,7 @@ struct ponto: Codable{
     var id = UUID()
     var symbol: String
     var color: String
+    var categoria_name: String
     var name: String
     var descricao: String
     var lon: Double
@@ -70,7 +71,7 @@ class PlaceController{
         while i < places.count{
             let cor = "Red"
             let aux = places[i]
-            let p = ponto(symbol: aux.categoria.symbol, color: cor, name: aux.name, descricao: aux.descricao, lon: aux.coordinate.longitude, lat: aux.coordinate.latitude)
+            let p = ponto(symbol: aux.categoria.symbol, color: cor, categoria_name: aux.categoria.name, name: aux.name, descricao: aux.descricao, lon: aux.coordinate.longitude, lat: aux.coordinate.latitude)
             pontinhos.append(p)
             i += 1
         }
@@ -81,7 +82,7 @@ class PlaceController{
         var places = [Place]()
         while i < pontos.count{
             let aux = pontos[i]
-            let cat = Categoria(name: aux.name, symbol: aux.symbol, color: Color("\(aux.color)"))
+            let cat = Categoria(name: aux.categoria_name, symbol: aux.symbol, color: Color("\(aux.color)"))
             let coordenada = CLLocationCoordinate2D(latitude: aux.lat, longitude: aux.lon)
             let p = Place(name: aux.name, descricao: aux.descricao, categoria: cat, coordinate: coordenada, state: .none )
             places.append(p)

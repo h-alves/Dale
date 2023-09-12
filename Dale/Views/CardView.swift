@@ -26,7 +26,7 @@ struct CardView: View {
                     
                     .padding(.bottom, 8)
                 
-                CategoryButton(categoria: annotation.categoria)
+                CategoryButton(categoria: annotation.categoria, isSelected: true)
             }
             .padding(.vertical, 20)
             
