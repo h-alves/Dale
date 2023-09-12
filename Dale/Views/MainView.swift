@@ -134,6 +134,9 @@ struct MainView: View {
                     
                 case .clicking:
                     state = .editing
+                    withAnimation {
+                        barUp = 0
+                    }
                 case .none:
                     print("a")
                 }
