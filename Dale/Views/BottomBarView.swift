@@ -15,9 +15,10 @@ struct BottomBarView: View {
     @Binding var nome: String
     @Binding var descricao: String
     @Binding var categoria: Categoria
-    @State var selected: Categoria?
+    @Binding var selected: Categoria
     
     @State var mainFunction: () -> Void
+    @State var deleteFunction: () -> Void
     
     var body: some View{
         VStack{
@@ -40,7 +41,8 @@ struct BottomBarView: View {
         }
         .padding(.horizontal, 24)
         .padding(.vertical, 8)
-        .frame(maxWidth: .infinity, maxHeight: alturamodal(state: state), alignment: .top)
+        .frame(height: 300)
+        .frame(maxWidth: .infinity)
 
         .background(Color("RoxoBG"))
     }
@@ -112,11 +114,6 @@ struct BottomBarView: View {
         .padding(.horizontal, 12)
     }
     
-    
-    var isDisabled: Bool {
-        selected == nil
-    }
-    
     var editingView: some View {
         VStack{
             VStack{
@@ -128,7 +125,7 @@ struct BottomBarView: View {
                     ForEach(Categoria.getAll()){ categoria in
                         Button {
                             if selected == categoria {
-                                selected = nil
+                                selected = .vazia
                             } else {
                                 selected = categoria
                             }
@@ -146,8 +143,7 @@ struct BottomBarView: View {
             HStack {
                 
                 Button {
-                    // Desabilitar botão quando não marcou tudo
-                    mainFunction()
+                    deleteFunction()
                 } label: {
                     Image("Excluir")
                         .resizable()
@@ -162,10 +158,10 @@ struct BottomBarView: View {
                         .padding(8)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                        .background(isDisabled ? Color(.gray) : Color("MagentaMarrenta"))
+                        .background(isDisabled() ? Color(.gray) : Color("MagentaMarrenta"))
                         .cornerRadius(10)
                 }
-                .disabled(isDisabled)
+                .disabled(isDisabled())
                 
                 Spacer()
             }
@@ -177,20 +173,23 @@ struct BottomBarView: View {
             
         }
     }
-}
-
-func alturamodal(state: Modo) -> CGFloat? {
-    if state == .creating {
-        return CGFloat(160)
-    } else {
-        return CGFloat(300)
+    
+    func isDisabled() -> Bool {
+        if (nome == "" || descricao == ""){
+            return true
+        }else{
+            return false
+        }
     }
 }
 
+
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarView(annotation: .constant(Place(name: "teste", descricao: "teste 2", categoria: Categoria.geral, coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), state: .none)), state: .constant(.none), nome: .constant(""), descricao: .constant(""), categoria: .constant(Categoria.vazia)){
+        BottomBarView(annotation: .constant(Place(name: "teste", descricao: "teste 2", categoria: Categoria.geral, coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), state: .none)), state: .constant(.none), nome: .constant(""), descricao: .constant(""), categoria: .constant(Categoria.vazia), selected: .constant(Categoria.estacionamento)){
             print("a")
+        } deleteFunction: {
+            print("b")
         }
     }
 }
