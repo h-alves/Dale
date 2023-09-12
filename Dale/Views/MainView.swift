@@ -13,7 +13,7 @@ struct MainView: View {
     @State var showingBar = false
     @State var barUp: CGFloat = 250
     
-    @State var annotations: [Place] = []
+    @State var annotations: [Place] = PlaceController().recuperar() ?? []
     @State var annotationSelected: Place = .emptyPlace
     
     @State var state: Modo = .none
@@ -124,6 +124,8 @@ struct MainView: View {
                     annotations[index!].categoria = categoria
                     
                     annotationSelected = .emptyPlace
+                    
+                    PlaceController().salvar(places: annotations)
                     
                     state = .none
                     withAnimation {
