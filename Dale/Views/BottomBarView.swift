@@ -20,9 +20,11 @@ struct BottomBarView: View {
     
     @Binding var buscar: String
     @State private var isEditing = false
+    @FocusState private var isFocused: Bool
     
     @State var mainFunction: () -> Void
-    @State var deleteFunction: () -> Void
+    @State var secondaryFunction: (_ annotation: Place) -> Void
+    @State var terciaryFunction: () -> Void
     
     var body: some View{
         VStack{
@@ -143,7 +145,7 @@ struct BottomBarView: View {
             HStack {
                 
                 Button {
-                    deleteFunction()
+                    secondaryFunction(Place.emptyPlace)
                 } label: {
                     Image("Excluir")
                         .resizable()
@@ -173,35 +175,59 @@ struct BottomBarView: View {
             HStack{
                 HStack{
                     Image(systemName: "magnifyingglass")
+                        .foregroundColor(.secondary)
                     
                     TextField("Buscar", text: $buscar)
+                        .focused($isFocused)
                 }
-                .padding(12)
+                .padding(.vertical, 8)
+                .padding(.horizontal, 10)
                 .background(Color("RoxoBGaux"))
                 .cornerRadius(12)
                 .onTapGesture {
                     mainFunction()
                     withAnimation{
                         self.isEditing = true
+                        self.isFocused = true
                     }
                 }
                 
-                if buscar != "" {
+                if isFocused {
                     Button {
+                        terciaryFunction()
                         withAnimation{
                             self.isEditing = false
+                            self.isFocused = false
                         }
                         self.buscar = ""
                     } label: {
+                        // Botão bonito
                         Text("Cancel")
                     }
+                }else{
+                    // Botão de histórico
                 }
             }
             
-            if buscar != ""{
-                ForEach(annotations) {annotation in
-                    if annotation.name.lowercased().contains(buscar.lowercased()){
-                        Text(annotation.name)
+            ScrollView{
+                if buscar != ""{
+                    ForEach(annotations.filter({ annotation in
+                        annotation.name.lowercased().contains(buscar.lowercased())
+                    })) {annotation in
+                        HStack{
+                            Button {
+                                buscar = ""
+                                isFocused = false
+                                isEditing = false
+                                secondaryFunction(annotation)
+                            } label: {
+                                Text(annotation.name)
+                                    .foregroundColor(.white)
+                                    .padding(.vertical, 8)
+                            }
+                            
+                            Spacer()
+                        }
                     }
                 }
             }
@@ -222,8 +248,10 @@ struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
         BottomBarView(annotations: .constant([Place.emptyPlace]), annotation: .constant(Place(name: "teste", descricao: "teste 2", categoria: Categoria.geral, coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), state: .none)), state: .constant(.none), nome: .constant(""), descricao: .constant(""), categoria: .constant(Categoria.vazia), selected: .constant(Categoria.estacionamento), buscar: .constant("")){
             print("a")
-        } deleteFunction: {
+        } secondaryFunction: {annotation in 
             print("b")
+        } terciaryFunction: {
+            print("c")
         }
     }
 }

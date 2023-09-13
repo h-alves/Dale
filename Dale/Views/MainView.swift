@@ -142,10 +142,24 @@ struct MainView: View {
                         barUp = 0
                     }
                 }
-            } deleteFunction: {
+            } secondaryFunction: {annotation in
                 if state == .editing{
                     annotations.removeAll { $0.id == annotationSelected.id }
                     state = .none
+                    withAnimation {
+                        barUp = 250
+                    }
+                }else if state == .none{
+                    manager.centered = false
+                    manager.region.center = annotation.coordinate
+                    annotationSelected = annotation
+                    state = .clicking
+                    withAnimation{
+                        barUp = 120
+                    }
+                }
+            } terciaryFunction: {
+                if state == .none{
                     withAnimation {
                         barUp = 250
                     }
