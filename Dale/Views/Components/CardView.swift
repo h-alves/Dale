@@ -33,7 +33,7 @@ struct CardView: View {
             Spacer()
             
             Image(annotation.categoria.symbol)
-                .frame()
+                .frame(width: 30)
         }
         .padding(.horizontal, 16)
         .frame(maxWidth: .infinity)

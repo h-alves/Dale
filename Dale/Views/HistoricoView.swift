@@ -14,22 +14,6 @@ struct HistoricoView: View {
     
     var body: some View {
         VStack {
-            
-            HStack {
-                
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(.secondary)
-                
-                Text("Buscar")
-                    .foregroundColor(.secondary)
-                
-                Spacer()
-            }
-            .padding(.vertical, 8)
-            .padding(.horizontal, 10)
-            .background(Color("RoxoBGaux"))
-            .cornerRadius(10)
-            
             VStack{
                 
                 ForEach(annotations) { annotation in

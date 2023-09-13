@@ -26,8 +26,9 @@ struct CenterToggleButton: View {
             } label: {
                 Image(systemName: icon())
                     .frame(width: 15, height: 15)
+                    .foregroundColor(Color("VerdeVelocidade"))
                     .padding()
-                    .background(.white)
+                    .background(Color("RoxoBG"))
                     .cornerRadius(12)
             }
         }

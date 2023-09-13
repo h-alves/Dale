@@ -9,6 +9,7 @@ import SwiftUI
 import CoreLocation
 
 struct BottomBarView: View {
+    @Binding var annotations: [Place]
     @Binding var annotation: Place
     @Binding var state: Modo
     
@@ -17,15 +18,16 @@ struct BottomBarView: View {
     @Binding var categoria: Categoria
     @Binding var selected: Categoria
     
+    @Binding var buscar: String
+    @State private var isEditing = false
+    @FocusState private var isFocused: Bool
+    
     @State var mainFunction: () -> Void
-    @State var deleteFunction: () -> Void
+    @State var secondaryFunction: (_ annotation: Place) -> Void
+    @State var terciaryFunction: () -> Void
     
     var body: some View{
         VStack{
-            RoundedRectangle(cornerRadius: 5)
-                .frame(width: 40, height: 5)
-                .foregroundColor(Color(UIColor.systemGray2))
-            
             switch state{
             case .creating:
                 creatingView
@@ -57,6 +59,13 @@ struct BottomBarView: View {
             
             Button {
                 mainFunction()
+                if buscar != ""{
+                    withAnimation{
+                        self.isEditing = false
+                        self.isFocused = false
+                    }
+                    self.buscar = ""
+                }
             } label: {
                 ZStack{
                     
@@ -96,8 +105,14 @@ struct BottomBarView: View {
                 Spacer()
                 
                 Button {
-                    // Função de editar
                     mainFunction()
+                    if buscar != ""{
+                        withAnimation{
+                            self.isEditing = false
+                            self.isFocused = false
+                        }
+                        self.buscar = ""
+                    }
                 } label: {
                     Image("Editar")
                         .resizable()
@@ -143,7 +158,14 @@ struct BottomBarView: View {
             HStack {
                 
                 Button {
-                    deleteFunction()
+                    secondaryFunction(Place.emptyPlace)
+                    if buscar != ""{
+                        withAnimation{
+                            self.isEditing = false
+                            self.isFocused = false
+                        }
+                        self.buscar = ""
+                    }
                 } label: {
                     Image("Excluir")
                         .resizable()
@@ -152,6 +174,13 @@ struct BottomBarView: View {
                 
                 Button {
                     mainFunction()
+                    if buscar != ""{
+                        withAnimation{
+                            self.isEditing = false
+                            self.isFocused = false
+                        }
+                        self.buscar = ""
+                    }
                 } label: {
                     Text("salvar")
                         .frame(maxWidth: .infinity)
@@ -170,7 +199,66 @@ struct BottomBarView: View {
     
     var defaultView: some View {
         VStack{
+            HStack{
+                HStack{
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.secondary)
+                    
+                    TextField("Buscar", text: $buscar)
+                        .focused($isFocused)
+                }
+                .padding(.vertical, 8)
+                .padding(.horizontal, 10)
+                .background(Color("RoxoBGaux"))
+                .cornerRadius(12)
+                .onTapGesture {
+                    mainFunction()
+                    withAnimation{
+                        self.isEditing = true
+                        self.isFocused = true
+                    }
+                }
+                .padding(.top, 12)
+                
+                if isFocused {
+                    Button {
+                        terciaryFunction()
+                        withAnimation{
+                            self.isEditing = false
+                            self.isFocused = false
+                        }
+                        self.buscar = ""
+                    } label: {
+                        // Botão bonito
+                        Text("Cancel")
+                    }
+                }else{
+                    // Botão de histórico
+                }
+            }
             
+            ScrollView{
+                if buscar != ""{
+                    ForEach(annotations.filter({ annotation in
+                        annotation.name.lowercased().contains(buscar.lowercased())
+                    })) {annotation in
+                        HStack{
+                            Button {
+                                buscar = ""
+                                isFocused = false
+                                isEditing = false
+                                secondaryFunction(annotation)
+                            } label: {
+                                Text(annotation.name)
+                                    .foregroundColor(.white)
+                                    .padding(.vertical, 8)
+                            }
+                            
+                            Spacer()
+                        }
+                    }
+                }
+            }
         }
     }
     
@@ -186,10 +274,12 @@ struct BottomBarView: View {
 
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarView(annotation: .constant(Place(name: "teste", descricao: "teste 2", categoria: Categoria.geral, coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), state: .none)), state: .constant(.none), nome: .constant(""), descricao: .constant(""), categoria: .constant(Categoria.vazia), selected: .constant(Categoria.estacionamento)){
+        BottomBarView(annotations: .constant([Place.emptyPlace]), annotation: .constant(Place(name: "teste", descricao: "teste 2", categoria: Categoria.geral, coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), state: .none)), state: .constant(.none), nome: .constant(""), descricao: .constant(""), categoria: .constant(Categoria.vazia), selected: .constant(Categoria.estacionamento), buscar: .constant("")){
             print("a")
-        } deleteFunction: {
+        } secondaryFunction: {annotation in 
             print("b")
+        } terciaryFunction: {
+            print("c")
         }
     }
 }
