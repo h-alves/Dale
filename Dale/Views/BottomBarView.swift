@@ -9,6 +9,7 @@ import SwiftUI
 import CoreLocation
 
 struct BottomBarView: View {
+    @Binding var annotations: [Place]
     @Binding var annotation: Place
     @Binding var state: Modo
     
@@ -17,15 +18,14 @@ struct BottomBarView: View {
     @Binding var categoria: Categoria
     @Binding var selected: Categoria
     
+    @Binding var buscar: String
+    @State private var isEditing = false
+    
     @State var mainFunction: () -> Void
     @State var deleteFunction: () -> Void
     
     var body: some View{
         VStack{
-            RoundedRectangle(cornerRadius: 5)
-                .frame(width: 40, height: 5)
-                .foregroundColor(Color(UIColor.systemGray2))
-            
             switch state{
             case .creating:
                 creatingView
@@ -170,7 +170,41 @@ struct BottomBarView: View {
     
     var defaultView: some View {
         VStack{
+            HStack{
+                HStack{
+                    Image(systemName: "magnifyingglass")
+                    
+                    TextField("Buscar", text: $buscar)
+                }
+                .padding(12)
+                .background(Color("RoxoBGaux"))
+                .cornerRadius(12)
+                .onTapGesture {
+                    mainFunction()
+                    withAnimation{
+                        self.isEditing = true
+                    }
+                }
+                
+                if buscar != "" {
+                    Button {
+                        withAnimation{
+                            self.isEditing = false
+                        }
+                        self.buscar = ""
+                    } label: {
+                        Text("Cancel")
+                    }
+                }
+            }
             
+            if buscar != ""{
+                ForEach(annotations) {annotation in
+                    if annotation.name.lowercased().contains(buscar.lowercased()){
+                        Text(annotation.name)
+                    }
+                }
+            }
         }
     }
     
@@ -186,7 +220,7 @@ struct BottomBarView: View {
 
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarView(annotation: .constant(Place(name: "teste", descricao: "teste 2", categoria: Categoria.geral, coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), state: .none)), state: .constant(.none), nome: .constant(""), descricao: .constant(""), categoria: .constant(Categoria.vazia), selected: .constant(Categoria.estacionamento)){
+        BottomBarView(annotations: .constant([Place.emptyPlace]), annotation: .constant(Place(name: "teste", descricao: "teste 2", categoria: Categoria.geral, coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), state: .none)), state: .constant(.none), nome: .constant(""), descricao: .constant(""), categoria: .constant(Categoria.vazia), selected: .constant(Categoria.estacionamento), buscar: .constant("")){
             print("a")
         } deleteFunction: {
             print("b")

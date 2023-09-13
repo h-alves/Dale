@@ -109,7 +109,6 @@
 				78E3BBBB2AA4282D005C5BAF /* MainView.swift */,
 				78E3BBAE2AA42267005C5BAF /* BottomBarView.swift */,
 				54677BF82AAFA2D10083417F /* HistoricoView.swift */,
-				54677BFA2AAFA74C0083417F /* CardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -121,6 +120,7 @@
 				78E3BBB22AA42292005C5BAF /* CenterToggleButton.swift */,
 				78E3BBB02AA4227E005C5BAF /* PlaceAnnotation.swift */,
 				782EBF6F2AA50DE4008A2805 /* CategoryButton.swift */,
+				54677BFA2AAFA74C0083417F /* CardView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

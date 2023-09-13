@@ -22,6 +22,8 @@ struct MainView: View {
     @State var descricao = ""
     @State var categoria: Categoria = Categoria.vazia
     
+    @State var busca = ""
+    
     var body: some View{
         ZStack(alignment: .bottom){
             Map(coordinateRegion: $manager.region, interactionModes: .all, showsUserLocation: true, annotationItems: annotations){ place in
@@ -57,8 +59,6 @@ struct MainView: View {
                         withAnimation {
                             barUp = 250
                         }
-                        
-                        annotations.removeAll { $0.id == annotationSelected.id }
                     }
             )
             .gesture(LongPressGesture(
@@ -100,7 +100,7 @@ struct MainView: View {
             }
             .position(x: 350, y: 40)
             
-            BottomBarView(annotation: $annotationSelected,  state: $state, nome: $nome, descricao: $descricao, categoria: $categoria, selected: $categoria){
+            BottomBarView(annotations: $annotations, annotation: $annotationSelected,  state: $state, nome: $nome, descricao: $descricao, categoria: $categoria, selected: $categoria, buscar: $busca){
                 let index = annotations.firstIndex(where: { $0.id == annotationSelected.id})
                 
                 switch state{
@@ -138,7 +138,9 @@ struct MainView: View {
                         barUp = 0
                     }
                 case .none:
-                    print("a")
+                    withAnimation {
+                        barUp = 0
+                    }
                 }
             } deleteFunction: {
                 if state == .editing{
