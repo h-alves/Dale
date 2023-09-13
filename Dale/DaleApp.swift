@@ -9,10 +9,25 @@ import SwiftUI
 
 @main
 struct DaleApp: App {
+    @AppStorage("hasAppearedBefore") private var hasAppearedBefore = false
+    @State var load = false
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .preferredColorScheme(.dark)
+            
+            if(!load){
+                SplashView(isEnd: $load)
+            }
+            else if (!hasAppearedBefore){
+                OnBoardingView()
+            }
+            else{
+                ContentView()
+                    .preferredColorScheme(.dark)
+            }
+            
+                
         }
+        
     }
 }
