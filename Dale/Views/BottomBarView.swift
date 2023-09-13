@@ -59,6 +59,13 @@ struct BottomBarView: View {
             
             Button {
                 mainFunction()
+                if buscar != ""{
+                    withAnimation{
+                        self.isEditing = false
+                        self.isFocused = false
+                    }
+                    self.buscar = ""
+                }
             } label: {
                 ZStack{
                     
@@ -98,8 +105,14 @@ struct BottomBarView: View {
                 Spacer()
                 
                 Button {
-                    // Função de editar
                     mainFunction()
+                    if buscar != ""{
+                        withAnimation{
+                            self.isEditing = false
+                            self.isFocused = false
+                        }
+                        self.buscar = ""
+                    }
                 } label: {
                     Image("Editar")
                         .resizable()
@@ -146,6 +159,13 @@ struct BottomBarView: View {
                 
                 Button {
                     secondaryFunction(Place.emptyPlace)
+                    if buscar != ""{
+                        withAnimation{
+                            self.isEditing = false
+                            self.isFocused = false
+                        }
+                        self.buscar = ""
+                    }
                 } label: {
                     Image("Excluir")
                         .resizable()
@@ -154,6 +174,13 @@ struct BottomBarView: View {
                 
                 Button {
                     mainFunction()
+                    if buscar != ""{
+                        withAnimation{
+                            self.isEditing = false
+                            self.isFocused = false
+                        }
+                        self.buscar = ""
+                    }
                 } label: {
                     Text("salvar")
                         .frame(maxWidth: .infinity)
@@ -191,6 +218,7 @@ struct BottomBarView: View {
                         self.isFocused = true
                     }
                 }
+                .padding(.top, 12)
                 
                 if isFocused {
                     Button {

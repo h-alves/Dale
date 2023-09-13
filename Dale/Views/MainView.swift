@@ -30,6 +30,7 @@ struct MainView: View {
                 MapAnnotation(coordinate: place.state == .creating ? manager.region.center : place.coordinate) {
                     PlaceAnnotation(place: place){
                         if state == .none{
+                            manager.centered = false
                             HapticsService.shared.play(.rigid)
                             annotationSelected = place
                             manager.region.center = annotationSelected.coordinate
@@ -53,6 +54,7 @@ struct MainView: View {
                             if state != .clicking || annotationSelected.name == "" || annotationSelected.descricao == ""{
                                     annotations.removeAll { $0.id == annotationSelected.id }
                             }
+                            busca = ""
                         }
                         annotationSelected = .emptyPlace
                         state = .none
