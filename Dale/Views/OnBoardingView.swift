@@ -31,6 +31,7 @@ struct OnBoardingView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(maxWidth: 35)
+                                .padding(.trailing,8)
                             
                             VStack{
                                 HStack{
@@ -56,7 +57,8 @@ struct OnBoardingView: View {
                             }
                         }
                     }
-                    .padding(16)
+                    .padding(.leading,32)
+                    
                     
                     //Bloquinho 02
                     VStack{
@@ -65,6 +67,7 @@ struct OnBoardingView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(maxWidth: 35)
+                                .padding(.trailing,8)
                             
                             VStack{
                                 HStack{
@@ -90,7 +93,8 @@ struct OnBoardingView: View {
                             }
                         }
                     }
-                    .padding(16)
+                    .padding(.leading,32)
+                    .padding(.top,24)
                     
                     // Bloquinho 03
                     VStack{
@@ -99,6 +103,7 @@ struct OnBoardingView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(maxWidth: 35)
+                                .padding(.trailing,8)
                             
                             VStack{
                                 HStack{
@@ -110,7 +115,8 @@ struct OnBoardingView: View {
                             }
                         }
                     }
-                    .padding(16)
+                    .padding(.leading,32)
+                    .padding(.top,24)
                     
                     Spacer()
                     
