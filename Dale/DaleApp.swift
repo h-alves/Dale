@@ -11,7 +11,7 @@ import SwiftUI
 struct DaleApp: App {
     @AppStorage("hasAppearedBefore") private var hasAppearedBefore = false
     @State var load = false
-    
+    private var principalView = ContentView()
     var body: some Scene {
         WindowGroup {
             
@@ -22,7 +22,7 @@ struct DaleApp: App {
                 OnBoardingView()
             }
             else{
-                ContentView()
+                principalView
                     .preferredColorScheme(.dark)
             }
             
