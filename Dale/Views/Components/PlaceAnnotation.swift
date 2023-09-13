@@ -15,22 +15,15 @@ struct PlaceAnnotation: View {
     var funcao: () -> Void
     
     var body: some View {
-        VStack(spacing: 0) {
-            Image(systemName: "mappin.circle.fill")
-                .font(.title)
-                .foregroundColor(place.categoria.color)
-            
-            if place.state != .none{
-                Image(systemName: "arrowtriangle.down.fill")
-                    .font(.caption)
-                    .foregroundColor(place.categoria.color)
-                    .offset(x: 0, y: -5)
-            }
-        }
-        .onTapGesture {
+        Button {
             place.state = .clicking
             funcao()
+        } label: {
+            Image("IconeGeral")
+              .resizable()
+              .frame(maxWidth: 60, maxHeight: 60)
         }
+
     }
 }
 

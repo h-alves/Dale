@@ -9,6 +9,7 @@ import SwiftUI
 
 struct CategoryButton: View {
     @State var categoria: Categoria
+    var isSelected: Bool
     
     var body: some View {
         Text(categoria.name)
@@ -17,13 +18,13 @@ struct CategoryButton: View {
             .font(.subheadline)
             .fontWeight(.bold)
             .foregroundColor(.white)
-            .background(categoria.color)
+            .background(isSelected ? Color(.gray) : categoria.color)
             .cornerRadius(6)
     }
 }
 
 struct CategoryButton_Previews: PreviewProvider {
     static var previews: some View {
-        CategoryButton(categoria: Categoria.buraco)
+        CategoryButton(categoria: Categoria.geral, isSelected: false)
     }
 }

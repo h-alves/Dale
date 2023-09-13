@@ -11,9 +11,9 @@ import MapKit
 struct MainView: View {
     @StateObject var manager = LocationManager()
     @State var showingBar = false
-    @State var barUp = 250
+    @State var barUp: CGFloat = 250
     
-    @State var annotations: [Place] = []
+    @State var annotations: [Place] = PlaceController().recuperar() ?? []
     @State var annotationSelected: Place = .emptyPlace
     
     @State var state: Modo = .none
@@ -22,17 +22,23 @@ struct MainView: View {
     @State var descricao = ""
     @State var categoria: Categoria = Categoria.vazia
     
+    @State var busca = ""
+    
     var body: some View{
         ZStack(alignment: .bottom){
             Map(coordinateRegion: $manager.region, interactionModes: .all, showsUserLocation: true, annotationItems: annotations){ place in
                 MapAnnotation(coordinate: place.state == .creating ? manager.region.center : place.coordinate) {
                     PlaceAnnotation(place: place){
-                        annotationSelected = place
-                        manager.region.center = annotationSelected.coordinate
-                        withAnimation{
-                            showingBar = true
+                        if state == .none{
+                            manager.centered = false
+                            HapticsService.shared.play(.rigid)
+                            annotationSelected = place
+                            manager.region.center = annotationSelected.coordinate
+                            state = .clicking
+                            withAnimation{
+                                barUp = 120
+                            }
                         }
-                        state = .clicking
                     }
                 }
             }
@@ -47,20 +53,14 @@ struct MainView: View {
                         if state != .none{
                             if state != .clicking || annotationSelected.name == "" || annotationSelected.descricao == ""{
                                     annotations.removeAll { $0.id == annotationSelected.id }
-                            }else{
-//                                let index = annotations.firstIndex(where: { $0.id == annotationSelected.id})
-//                                let updatedAnnotation = Place(name: nome, descricao: descricao, categoria: categoria, coordinate: annotations[index!].coordinate, state: .none)
-//
-//                                annotations.append(updatedAnnotation)
                             }
+                            busca = ""
                         }
                         annotationSelected = .emptyPlace
-                        withAnimation {
-                            showingBar = false
-                        }
                         state = .none
-                        
-                        annotations.removeAll { $0.id == annotationSelected.id }
+                        withAnimation {
+                            barUp = 250
+                        }
                     }
             )
             .gesture(LongPressGesture(
@@ -73,23 +73,23 @@ struct MainView: View {
                 )
                     .onEnded { value in
                         // Feedback de tremida e/ou mexidinha no ponto
-                        HapticsService.shared.play(.light)
+                        HapticsService.shared.play(.medium)
                         
                         if state == .creating{
                             annotations.removeAll { $0.id == annotationSelected.id }
                             annotationSelected = .emptyPlace
-                            withAnimation {
-                                showingBar = false
-                            }
                             state = .none
+                            withAnimation {
+                                barUp = 250
+                            }
                         }else{
-                            let newAnnotation = Place(name: "", descricao: "", categoria: Categoria.vazia, coordinate: manager.region.center, state: .creating)
+                            let newAnnotation = Place(name: "", descricao: "", categoria: Categoria.geral, coordinate: manager.region.center, state: .creating)
                             annotationSelected = newAnnotation
                             annotations.append(newAnnotation)
-                            withAnimation {
-                                showingBar = true
-                            }
                             state = .creating
+                            withAnimation {
+                                barUp = 160
+                            }
                         }
                     })
             
@@ -102,44 +102,75 @@ struct MainView: View {
             }
             .position(x: 350, y: 40)
             
-            BottomBarView(annotation: $annotationSelected,  state: $state, nome: $nome, descricao: $descricao, categoria: $categoria){
+            BottomBarView(annotations: $annotations, annotation: $annotationSelected,  state: $state, nome: $nome, descricao: $descricao, categoria: $categoria, selected: $categoria, buscar: $busca){
                 let index = annotations.firstIndex(where: { $0.id == annotationSelected.id})
                 
                 switch state{
                 case .creating:
+                    HapticsService.shared.play(.medium)
                     annotations[index!].coordinate = manager.region.center
                     annotations[index!].state = .editing
                     
                     state = .editing
+                    withAnimation {
+                        barUp = 0
+                    }
+                    
                     nome = ""
                     descricao = ""
+                    categoria = Categoria.geral
                 case .editing:
+                    HapticsService.shared.play(.heavy)
                     annotations[index!].name = nome
                     annotations[index!].descricao = descricao
                     annotations[index!].categoria = categoria
                     
-//                    updateAnnotation(lugar: annotations[index!], index: Int(index!))
-//                    let updatedAnnotation = Place(name: nome, descricao: descricao, categoria: categoria, coordinate: annotations[index!].coordinate, state: .none)
-//
-//                    annotations.append(updatedAnnotation)
-                    
                     annotationSelected = .emptyPlace
                     
-                    withAnimation {
-                        showingBar = false
-                    }
+                    PlaceController().salvar(places: annotations)
                     
                     state = .none
+                    withAnimation {
+                        barUp = 250
+                    }
+                    
                 case .clicking:
                     state = .editing
+                    withAnimation {
+                        barUp = 0
+                    }
                 case .none:
-                    print("a")
+                    withAnimation {
+                        barUp = 0
+                    }
+                }
+            } secondaryFunction: {annotation in
+                if state == .editing{
+                    annotations.removeAll { $0.id == annotationSelected.id }
+                    state = .none
+                    withAnimation {
+                        barUp = 250
+                    }
+                }else if state == .none{
+                    manager.centered = false
+                    manager.region.center = annotation.coordinate
+                    annotationSelected = annotation
+                    state = .clicking
+                    withAnimation{
+                        barUp = 120
+                    }
+                }
+            } terciaryFunction: {
+                if state == .none{
+                    withAnimation {
+                        barUp = 250
+                    }
                 }
             }
             // Sistema de abaixar e levantar barra (provisório)
             .onTapGesture {
             }
-            .offset(x: 0, y: showingBar ? 0 : 250)
+            .offset(x: 0, y: barUp)
         }
     }
     

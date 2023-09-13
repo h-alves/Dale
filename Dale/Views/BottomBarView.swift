@@ -9,21 +9,25 @@ import SwiftUI
 import CoreLocation
 
 struct BottomBarView: View {
+    @Binding var annotations: [Place]
     @Binding var annotation: Place
     @Binding var state: Modo
     
     @Binding var nome: String
     @Binding var descricao: String
     @Binding var categoria: Categoria
+    @Binding var selected: Categoria
+    
+    @Binding var buscar: String
+    @State private var isEditing = false
+    @FocusState private var isFocused: Bool
     
     @State var mainFunction: () -> Void
+    @State var secondaryFunction: (_ annotation: Place) -> Void
+    @State var terciaryFunction: () -> Void
     
     var body: some View{
         VStack{
-            RoundedRectangle(cornerRadius: 5)
-                .frame(width: 40, height: 5)
-                .foregroundColor(Color(UIColor.systemGray2))
-            
             switch state{
             case .creating:
                 creatingView
@@ -38,9 +42,10 @@ struct BottomBarView: View {
             Spacer()
         }
         .padding(.horizontal, 24)
-        .padding(.vertical, 5)
+        .padding(.vertical, 8)
         .frame(height: 300)
         .frame(maxWidth: .infinity)
+
         .background(Color("RoxoBG"))
     }
     
@@ -50,15 +55,36 @@ struct BottomBarView: View {
             Text("Arraste o pin para o local desejado!")
                 .foregroundColor(.white)
                 .bold()
-                .padding(24)
+                .padding(12)
             
             Button {
                 mainFunction()
+                if buscar != ""{
+                    withAnimation{
+                        self.isEditing = false
+                        self.isFocused = false
+                    }
+                    self.buscar = ""
+                }
             } label: {
-                Text("DALE")
-                    .foregroundColor(Color("AzulSereno"))
-                    .background(Color("MagentaMarrenta"))
-                    .padding(.vertical, 58)
+                ZStack{
+                    
+                    Rectangle()
+                        .frame(height: 56)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color("MagentaMarrenta"))
+
+                        .cornerRadius(8)
+                    
+                    Image("DaleHorizontal")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: .infinity, maxHeight: 40)
+                        .padding(4)
+                    
+                    
+                }
+
             }
 
         }
@@ -79,8 +105,14 @@ struct BottomBarView: View {
                 Spacer()
                 
                 Button {
-                    // Função de editar
                     mainFunction()
+                    if buscar != ""{
+                        withAnimation{
+                            self.isEditing = false
+                            self.isFocused = false
+                        }
+                        self.buscar = ""
+                    }
                 } label: {
                     Image("Editar")
                         .resizable()
@@ -88,7 +120,7 @@ struct BottomBarView: View {
                 }
             }
             HStack{
-                CategoryButton(categoria: annotation.categoria)
+                CategoryButton(categoria: annotation.categoria, isSelected: selected != categoria)
                 
                 Spacer()
             }
@@ -107,10 +139,15 @@ struct BottomBarView: View {
                 FlexStack{
                     ForEach(Categoria.getAll()){ categoria in
                         Button {
-                            // Feedback (Deixar todos os outros cinza e esse completo)
+                            if selected == categoria {
+                                selected = .vazia
+                            } else {
+                                selected = categoria
+                            }
+                            
                             self.categoria = categoria
                         } label: {
-                            CategoryButton(categoria: categoria)
+                            CategoryButton(categoria: categoria, isSelected: selected != categoria)
                         }
                     }
                 }
@@ -120,22 +157,40 @@ struct BottomBarView: View {
             
             HStack {
                 
-                Image("Excluir")
-                    .resizable()
-                    .frame(width: 36, height: 36)
+                Button {
+                    secondaryFunction(Place.emptyPlace)
+                    if buscar != ""{
+                        withAnimation{
+                            self.isEditing = false
+                            self.isFocused = false
+                        }
+                        self.buscar = ""
+                    }
+                } label: {
+                    Image("Excluir")
+                        .resizable()
+                        .frame(maxWidth: 36, maxHeight: 36)
+                }
                 
                 Button {
-                    // Desabilitar botão quando não marcou tudo
                     mainFunction()
+                    if buscar != ""{
+                        withAnimation{
+                            self.isEditing = false
+                            self.isFocused = false
+                        }
+                        self.buscar = ""
+                    }
                 } label: {
                     Text("salvar")
                         .frame(maxWidth: .infinity)
                         .padding(8)
                         .fontWeight(.bold)
                         .foregroundColor(.white)
-                        .background(Color("MagentaMarrenta"))
+                        .background(isDisabled() ? Color(.gray) : Color("MagentaMarrenta"))
                         .cornerRadius(10)
                 }
+                .disabled(isDisabled())
                 
                 Spacer()
             }
@@ -144,15 +199,95 @@ struct BottomBarView: View {
     
     var defaultView: some View {
         VStack{
+            HStack{
+                HStack{
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.secondary)
+                    
+                    TextField("Buscar", text: $buscar)
+                        .focused($isFocused)
+                }
+                .padding(.vertical, 8)
+                .padding(.horizontal, 10)
+                .background(Color("RoxoBGaux"))
+                .cornerRadius(12)
+                .onTapGesture {
+                    mainFunction()
+                    withAnimation{
+                        self.isEditing = true
+                        self.isFocused = true
+                    }
+                }
+                
+                if buscar != "" {
+                    Button {
+                        terciaryFunction()
+                        withAnimation{
+                            self.isEditing = false
+                            self.isFocused = false
+                        }
+                        self.buscar = ""
+                    } label: {
+                        Image("Fechar")
+                            .resizable()
+                            .frame(maxWidth: 36, maxHeight: 36)
+                    }
+                }else{
+                    NavigationLink {
+                        HistoricoView(annotations: annotations)
+                    } label: {
+                        Image("Histórico")
+                            .resizable()
+                            .frame(maxWidth: 36, maxHeight: 36)
+                    }
+
+                }
+            }
+            .padding(.top, 12)
             
+            ScrollView{
+                if buscar != ""{
+                    ForEach(annotations.filter({ annotation in
+                        annotation.name.lowercased().contains(buscar.lowercased())
+                    })) {annotation in
+                        HStack{
+                            Button {
+                                buscar = ""
+                                isFocused = false
+                                isEditing = false
+                                secondaryFunction(annotation)
+                            } label: {
+                                Text(annotation.name)
+                                    .foregroundColor(.white)
+                                    .padding(.vertical, 8)
+                            }
+                            
+                            Spacer()
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func isDisabled() -> Bool {
+        if (nome == "" || descricao == ""){
+            return true
+        }else{
+            return false
         }
     }
 }
 
+
 struct BottomBarView_Previews: PreviewProvider {
     static var previews: some View {
-        BottomBarView(annotation: .constant(Place(name: "teste", descricao: "teste 2", categoria: Categoria.buraco, coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), state: .none)), state: .constant(.none), nome: .constant(""), descricao: .constant(""), categoria: .constant(Categoria.vazia)){
+        BottomBarView(annotations: .constant([Place.emptyPlace]), annotation: .constant(Place(name: "teste", descricao: "teste 2", categoria: Categoria.geral, coordinate: CLLocationCoordinate2D(latitude: 12, longitude: 12), state: .none)), state: .constant(.none), nome: .constant(""), descricao: .constant(""), categoria: .constant(Categoria.vazia), selected: .constant(Categoria.estacionamento), buscar: .constant("")){
             print("a")
+        } secondaryFunction: {annotation in 
+            print("b")
+        } terciaryFunction: {
+            print("c")
         }
     }
 }

@@ -10,7 +10,9 @@ import MapKit
 
 struct ContentView: View {
     var body: some View{
-        MainView()
+        NavigationStack{
+            MainView()
+        }
     }
 }
 

@@ -14,7 +14,7 @@ struct CaixaTexto: View {
     @FocusState private var isFocused: Bool
     
     var body: some View {
-        TextField(textoCaixa, text: $texto, prompt: Text("Placeholder").foregroundColor(Color.white))
+        TextField(textoCaixa, text: $texto, prompt: Text(textoCaixa).foregroundColor(Color.white))
             .focused($isFocused)
             .underlineTextField()
             .foregroundColor(.white)
