@@ -29,13 +29,14 @@ struct CardView: View {
                 CategoryButton(categoria: annotation.categoria, isSelected: true)
             }
             .padding(.vertical, 20)
+            .padding(.horizontal, 16)
             
             Spacer()
             
             Image(annotation.categoria.symbol)
-                .frame(width: 30)
+                .resizable()
+                .frame(width: 130, height: 130)
         }
-        .padding(.horizontal, 16)
         .frame(maxWidth: .infinity)
         .background(Color("RoxoBGaux"))
         .cornerRadius(10)

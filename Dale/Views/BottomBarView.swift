@@ -218,9 +218,8 @@ struct BottomBarView: View {
                         self.isFocused = true
                     }
                 }
-                .padding(.top, 12)
                 
-                if isFocused {
+                if buscar != "" {
                     Button {
                         terciaryFunction()
                         withAnimation{
@@ -229,13 +228,22 @@ struct BottomBarView: View {
                         }
                         self.buscar = ""
                     } label: {
-                        // Botão bonito
-                        Text("Cancel")
+                        Image("Fechar")
+                            .resizable()
+                            .frame(maxWidth: 36, maxHeight: 36)
                     }
                 }else{
-                    // Botão de histórico
+                    NavigationLink {
+                        HistoricoView(annotations: annotations)
+                    } label: {
+                        Image("Histórico")
+                            .resizable()
+                            .frame(maxWidth: 36, maxHeight: 36)
+                    }
+
                 }
             }
+            .padding(.top, 12)
             
             ScrollView{
                 if buscar != ""{

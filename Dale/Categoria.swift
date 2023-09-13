@@ -14,11 +14,11 @@ struct Categoria: Identifiable, Equatable {
     let symbol: String
     let color: Color
     
-    static var geral = Categoria(name: "Geral", symbol: "", color: Color("Lilás"))
-    static var perigo = Categoria(name: "Perigo", symbol: "", color: Color("Laranja"))
-    static var estacionamento = Categoria(name: "Estacionamento", symbol: "", color: Color("VerdeVelocidade"))
-    static var via = Categoria(name: "Via danificada", symbol: "", color: Color("RoxoEscuro"))
-    static var manutencao = Categoria(name: "Em manutenção", symbol: "", color: Color("AzulAmoroso"))
+    static var geral = Categoria(name: "Geral", symbol: "Geral", color: Color("Lilás"))
+    static var perigo = Categoria(name: "Perigo", symbol: "Perigo", color: Color("Laranja"))
+    static var estacionamento = Categoria(name: "Estacionamento", symbol: "Estacionamento", color: Color("VerdeVelocidade"))
+    static var via = Categoria(name: "Via danificada", symbol: "Danificada", color: Color("RoxoEscuro"))
+    static var manutencao = Categoria(name: "Em manutenção", symbol: "Manutenção", color: Color("AzulAmoroso"))
     
     static var vazia = Categoria(name: "", symbol: "", color: Color.white)
     

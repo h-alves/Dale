@@ -9,24 +9,39 @@ import SwiftUI
 import CoreLocation
 
 struct HistoricoView: View {
-    @State var annotations: [Place] = []
-    
+    @State var annotations: [Place]
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        VStack {
-            VStack{
-                
-                ForEach(annotations) { annotation in
-                    CardView(annotation: annotation)
+        ScrollView{
+            VStack {
+                VStack{
+                    ForEach(annotations) { annotation in
+                        CardView(annotation: annotation)
+                    }
+                }
+            }
+            .padding(.horizontal, 24)
+            .navigationBarBackButtonHidden()
+            .toolbar{
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        HStack{
+                            Image(systemName: "chevron.left")
+                            Text("Back")
+                        }
+                        .foregroundColor(Color("MagentaMarrenta"))
+                    }
                 }
             }
         }
-        .padding(.horizontal, 24)
     }
 }
 
 struct HistoricoView_Previews: PreviewProvider {
     static var previews: some View {
-        HistoricoView()
+        HistoricoView(annotations: [Place.emptyPlace])
     }
 }

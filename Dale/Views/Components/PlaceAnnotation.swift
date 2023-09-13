@@ -15,15 +15,15 @@ struct PlaceAnnotation: View {
     var funcao: () -> Void
     
     var body: some View {
-        VStack(spacing: 0) {
-          Image("IconeGeral")
-            .resizable()
-            .frame(maxWidth: 60, maxHeight: 60)
-        }
-        .onTapGesture {
+        Button {
             place.state = .clicking
             funcao()
+        } label: {
+            Image("IconeGeral")
+              .resizable()
+              .frame(maxWidth: 60, maxHeight: 60)
         }
+
     }
 }
 
