@@ -207,6 +207,7 @@ struct BottomBarView: View {
                     TextField("Buscar", text: $buscar)
                         .focused($isFocused)
                 }
+                .frame(maxWidth: 268)
                 .padding(.vertical, 8)
                 .padding(.horizontal, 10)
                 .background(Color("RoxoBGaux"))
@@ -218,6 +219,8 @@ struct BottomBarView: View {
                         self.isFocused = true
                     }
                 }
+                
+                Spacer()
                 
                 if buscar != "" {
                     Button {
